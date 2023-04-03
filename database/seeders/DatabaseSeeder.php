@@ -98,9 +98,11 @@ class DatabaseSeeder extends Seeder
         Size::factory()->create([
             'name' => 'XL',
         ]);
+        Size::factory()->create([
+            'name' => 'XXL',
+        ]);
 
         ProductSize::factory(20)->create();
-
         ProductImage::factory(20)->create();
         Newsletter::factory(20)->create();
         Wishlist::factory(20)->create();
