@@ -81,7 +81,6 @@ class DatabaseSeeder extends Seeder
             'current_team_id' => null,
         ]);
 
-
         Country::factory(10)->create();
         State::factory(10)->create();
         Address::factory(10)->create();
