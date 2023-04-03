@@ -30,7 +30,7 @@ class ProductFactory extends Factory
             'hot_offer' => $this->faker->boolean,
             'feature' => $this->faker->boolean,
             'status' => $this->faker->numberBetween(1, 3),
-            'views' => $this->faker->numberBetween(0, 10000),
+            'views' => $this->faker->numberBetween(1, 10000),
         ];
     }
 }
