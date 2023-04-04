@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
 
@@ -11,14 +12,43 @@ class FrontController extends Controller
     //
     public function index()
     {
+        // $categories = Category::al();
         return view('front.index');
     }
 
+    public function privacy()
+    {
+        return view('front.privacy');
+    }
 
+    public function products()
+    {
+        return view('front.products');
+    }
+    
+    public function featureProducts()
+    {
+        return view('front.feature-products');
+    }
 
-    public function contact_us()
+    public function hotOffers()
+    {
+        return view('front.hot-offers');
+    }
+
+    public function blog()
+    {
+        return view('front.blog');
+    }
+
+    public function contactUs()
     {
         return view('front.contact');
+    }
+
+    public function aboutUs()
+    {
+        return view('front.about');
     }
 
 

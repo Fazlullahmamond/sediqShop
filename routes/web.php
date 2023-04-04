@@ -53,8 +53,22 @@ Route::get('/redirectTo', function () {
 
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
-Route::get('/contact-us', [FrontController::class, 'contact_us'])->name('contact.create');
-Route::post('/contact-us', [FrontController::class, 'storeContactForm'])->name('contact.store');
+Route::get('/privacy', [FrontController::class, 'privacy'])->name('front.privacy');
+
+Route::get('/products', [FrontController::class, 'products'])->name('front.products');
+Route::get('/feature-products', [FrontController::class, 'featureProducts'])->name('front.featureProducts');
+Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
+Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
+Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.contactUs');
+Route::get('/about-us', [FrontController::class, 'aboutUs'])->name('front.aboutUs');
+
+
+
+
+
+
+// Route::get('/contact-us', [FrontController::class, 'contact_us'])->name('contact.create');
+// Route::post('/contact-us', [FrontController::class, 'storeContactForm'])->name('contact.store');
 
 
 
@@ -62,29 +76,29 @@ Route::post('/contact-us', [FrontController::class, 'storeContactForm'])->name('
 
 
 // admin pages route here
-Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
-    Route::resource('categories', 'CategoryController');
-    Route::resource('subcategories', 'SubCategoryController');
-    Route::resource('products', 'ProductController');
-    Route::resource('blogs', 'BlogController');
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
+// Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
+//     Route::resource('categories', 'CategoryController');
+//     Route::resource('subcategories', 'SubCategoryController');
+//     Route::resource('products', 'ProductController');
+//     Route::resource('blogs', 'BlogController');
+//     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+// });
 
 
 
 
 
 // user pages route here
-Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
-    Route::resource('user.addresses', 'UserAddressController');
-    Route::resource('products.reviews', 'ProductReviewController');
-    Route::resource('cart.items', 'CartItemsController');
-    Route::resource('wishlist', 'WishlistController');
-    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
-    // Subscribe to newsletter
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-    // Unsubscribe from newsletter
-    Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
-});
+// Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
+//     Route::resource('user.addresses', 'UserAddressController');
+//     Route::resource('products.reviews', 'ProductReviewController');
+//     Route::resource('cart.items', 'CartItemsController');
+//     Route::resource('wishlist', 'WishlistController');
+//     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+//     // Subscribe to newsletter
+//     Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+//     // Unsubscribe from newsletter
+//     Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+// });
 
 
