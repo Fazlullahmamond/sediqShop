@@ -45,10 +45,10 @@ class Product extends Model
     public function  getImageAttribute()
     {
         $image =  $this->product_images()->first();
-        if ($image) {
-            return $image->image_url;
-        } else {
+        if (!$image || $image == "0") {
             return '/storage/productImages/1.jpg';
+        } else {
+            return $image->image_url;
         }
     }
 

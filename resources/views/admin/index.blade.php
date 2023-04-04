@@ -1,4 +1,4 @@
-@extends('back.components.layout')
+@extends('admin.components.layout')
 
 
 @section('main')

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -46,7 +47,7 @@ Route::get('/redirectTo', function () {
     } else {
         return redirect(route('login'));
     }
-});
+})->name('redirectTo');
 
 
 
@@ -62,6 +63,10 @@ Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.contactUs');
 Route::get('/about-us', [FrontController::class, 'aboutUs'])->name('front.aboutUs');
 
+Route::get('/product/{id}', [ProductController::class, 'productDetails'])->name('product.details');
+Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
+
+
 
 
 
@@ -76,29 +81,29 @@ Route::get('/about-us', [FrontController::class, 'aboutUs'])->name('front.aboutU
 
 
 // admin pages route here
-// Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 //     Route::resource('categories', 'CategoryController');
 //     Route::resource('subcategories', 'SubCategoryController');
 //     Route::resource('products', 'ProductController');
 //     Route::resource('blogs', 'BlogController');
-//     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-// });
+});
 
 
 
 
 
 // user pages route here
-// Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
+Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
 //     Route::resource('user.addresses', 'UserAddressController');
 //     Route::resource('products.reviews', 'ProductReviewController');
 //     Route::resource('cart.items', 'CartItemsController');
 //     Route::resource('wishlist', 'WishlistController');
-//     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
 //     // Subscribe to newsletter
 //     Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 //     // Unsubscribe from newsletter
 //     Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
-// });
+});
 
 

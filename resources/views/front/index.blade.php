@@ -3560,7 +3560,7 @@
         </div>
     </section>
     <!-- Ec Instagram End -->
-    
+
 @endsection
 
 
@@ -3674,6 +3674,7 @@
     </div>
     <!-- Modal end -->
 
+    @if (auth()->guest())
     <!-- Newsletter Modal Start -->
     <div id="ec-popnews-bg"></div>
     <div id="ec-popnews-box">
@@ -3695,5 +3696,6 @@
         </div>
     </div>
     <!-- Newsletter Modal end -->
-    
+    @endif
+x
 @endsection

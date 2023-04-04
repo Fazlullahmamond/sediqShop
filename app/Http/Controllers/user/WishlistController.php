@@ -35,18 +35,18 @@ class WishlistController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'product_id' => 'required|exists:products,id',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     // Validate the request data
+    //     $validatedData = $request->validate([
+    //         'product_id' => 'required|exists:products,id',
+    //     ]);
 
-        // Add the product to the user's wishlist
-        auth()->user()->wishlist()->attach($validatedData['product_id']);
+    //     // Add the product to the user's wishlist
+    //     auth()->user()->wishlist()->attach($validatedData['product_id']);
 
-        return redirect()->route('wishlist.index')->with('success', 'Product added to wishlist.');
-    }
+    //     return redirect()->route('wishlist.index')->with('success', 'Product added to wishlist.');
+    // }
 
     /**
      * Display the specified resource.
@@ -75,11 +75,11 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {
-        // Remove the product from the user's wishlist
-        auth()->user()->wishlist()->detach($id);
+    // public function destroy($id)
+    // {
+    //     // Remove the product from the user's wishlist
+    //     auth()->user()->wishlist()->detach($id);
 
-        return redirect()->route('wishlist.index')->with('success', 'Product removed from wishlist.');
-    }
+    //     return redirect()->route('wishlist.index')->with('success', 'Product removed from wishlist.');
+    // }
 }

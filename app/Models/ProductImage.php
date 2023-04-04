@@ -17,10 +17,10 @@ class ProductImage extends Model
 
     public function getImageUrlAttribute()
     {
-        if (!$this->image) {
+        if (!$this->image_path || $this->image_path == "0") {
             return '/storage/productImages/1.jpg';
         } else {
-           return '/storage/productImages/' . $this->image;
+           return '/storage/productImages/' . $this->image_path;
         }
     }
 
