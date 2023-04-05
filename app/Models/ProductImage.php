@@ -19,6 +19,7 @@ class ProductImage extends Model
     {
         if (!$this->image_path || $this->image_path == "0") {
             return '/storage/productImages/1.jpg';
+            
         } else {
            return '/storage/productImages/' . $this->image_path;
         }
