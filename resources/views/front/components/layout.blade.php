@@ -12,8 +12,8 @@
 
     <meta property="og:title" content="Sediq Boutique"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://www.Sediqboutique.com"/>
-    <meta property="og:image" content="{{ asset('front/assets/images/logo/logo.png') }}"/>
+    <meta property="og:url" content="https://www.sediq.net"/>
+    <meta property="og:image" content="{{ asset('front/assets/images/main-slider-banner/1.jpg') }}"/>
     <meta property="og:description" content="Find all the latest wedding accessories at our online boutique store. Shop for wedding dresses, veils, shoes, and more."/>
     <meta property="og:site_name" content="Sediq Boutique"/>
 
