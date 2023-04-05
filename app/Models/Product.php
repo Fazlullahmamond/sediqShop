@@ -44,7 +44,7 @@ class Product extends Model
      */
     public function  getImageAttribute()
     {
-        $image =  $this->product_images()->first();
+        $image =  $this->images()->first();
         if (!$image || $image == "0") {
             return '/storage/productImages/1.jpg';
         } else {

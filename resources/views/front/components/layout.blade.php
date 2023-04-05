@@ -401,7 +401,7 @@
                         <div>
                             <div class="ec-sb-pro-sl-item">
                                 <a href="{{ route('product.details', $product->id) }}" class="sidekka_pro_img"><img
-                                        src="{{ asset($product->images[0]->image_url) }}" alt="{{ $product->tags }}" /></a>
+                                        src="{{ asset($product->image) }}" alt="{{ $product->tags }}" /></a>
                                 <div class="ec-pro-content">
                                     <h5 class="ec-pro-title"><a href="{{ route('product.details', $product->id) }}">{{ $product->title }}</a></h5>
                                     <div class="ec-pro-rating">
