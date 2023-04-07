@@ -6,16 +6,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>Sediq Boutique</title>
+    <title>W World</title>
     <meta name="description" content="Find all the latest wedding accessories at our online boutique store. Shop for wedding dresses, veils, shoes, and more.">
     <meta name="keywords" content="wedding, boutique, online store, accessories, dresses, veils, shoes">
 
-    <meta property="og:title" content="Sediq Boutique"/>
+    <meta property="og:title" content="W World"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://www.sediq.net"/>
     <meta property="og:image" content="{{ asset('front/assets/images/main-slider-banner/1.jpg') }}"/>
     <meta property="og:description" content="Find all the latest wedding accessories at our online boutique store. Shop for wedding dresses, veils, shoes, and more."/>
-    <meta property="og:site_name" content="Sediq Boutique"/>
+    <meta property="og:site_name" content="W World"/>
 
 
     <!-- site Favicon -->
@@ -472,7 +472,7 @@
                                         <li class="ec-footer-link"><span>Call Us:</span><a href="tel:+440123456789">+44
                                                 0123 456 789</a></li>
                                         <li class="ec-footer-link"><span>Email:</span><a
-                                                href="mailto:contact@Sediqboutique.com">contact@Sediqboutique.com</a></li>
+                                                href="mailto:contact@sediq.net">contact@sediq.net</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -568,7 +568,7 @@
                         <!-- Footer Copyright Start -->
                         <div class="col text-center footer-copy">
                             <div class="footer-bottom-copy ">
-                                <div class="ec-copy">Copyright © 2023 <a class="site-name text-upper" href="#">Sediq Boutique<span>.</span></a>. All Rights Reserved</div>
+                                <div class="ec-copy">Copyright © 2023 <a class="site-name text-upper" href="#">W World<span>.</span></a>. All Rights Reserved</div>
                             </div>
                         </div>
                         <!-- Footer Copyright End -->

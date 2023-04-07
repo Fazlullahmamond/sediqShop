@@ -35,15 +35,15 @@
                     <div class="section-title">
                         <h2 class="ec-bg-title">Privacy & Policy</h2>
                         <h2 class="ec-title">Privacy & Policy</h2>
-                        <p class="sub-title mb-3">Welcome to the Sediq Boutique marketplace</p>
+                        <p class="sub-title mb-3">Welcome to the W World Boutique marketplace</p>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="ec-common-wrapper">
                         <div class="col-sm-12 ec-cms-block">
                             <div class="ec-cms-block-inner">
-                                <h3 class="ec-cms-block-title">Welcome to the Sediq Boutique marketplace</h3>
-                                <p class='mb-3'>We at Sediq Boutique are committed to protecting your privacy. This Privacy Policy governs our data collection, processing, and usage practices. By using our website, you consent to the data practices described in this policy.</b></b></p>
+                                <h3 class="ec-cms-block-title">Welcome to the W World Boutique marketplace</h3>
+                                <p class='mb-3'>We at W World Boutique are committed to protecting your privacy. This Privacy Policy governs our data collection, processing, and usage practices. By using our website, you consent to the data practices described in this policy.</b></b></p>
                             </div>
                         </div>
                         <div class="col-sm-12 ec-cms-block">
@@ -84,7 +84,7 @@
                         <div class="col-sm-12 ec-cms-block">
                             <div class="ec-cms-block-inner">
                                 <h3 class="ec-cms-block-title">Contact Us</h3>
-                                <p class='mb-3'>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:contact@Sediqboutique.com">contact@Sediqboutique.com</a>.</b></b></p>
+                                <p class='mb-3'>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:contact@W Worldboutique.com">contact@W Worldboutique.com</a>.</b></b></p>
                             </div>
                         </div>
                     </div>
