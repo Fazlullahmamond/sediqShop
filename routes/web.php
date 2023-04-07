@@ -103,7 +103,6 @@ Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function (
 //     // Subscribe to newsletter
 //     Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 //     // Unsubscribe from newsletter
+
 //     Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 });
-
-
