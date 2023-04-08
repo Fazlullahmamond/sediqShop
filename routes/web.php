@@ -57,6 +57,7 @@ Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/privacy', [FrontController::class, 'privacy'])->name('front.privacy');
 
 Route::get('/products', [FrontController::class, 'products'])->name('front.products');
+
 Route::get('/feature-products', [FrontController::class, 'featureProducts'])->name('front.featureProducts');
 Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
