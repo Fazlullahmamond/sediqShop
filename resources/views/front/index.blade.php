@@ -3697,5 +3697,4 @@
         </div>
         <!-- Newsletter Modal end -->
     @endif
-x
 @endsection

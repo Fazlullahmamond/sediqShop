@@ -15,4 +15,5 @@ class ProductSize extends Model
     ];
 
     
+    
 }

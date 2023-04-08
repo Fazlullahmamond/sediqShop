@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\ContactUs;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -23,7 +24,8 @@ class FrontController extends Controller
 
     public function products()
     {
-        return view('front.products');
+        $products = Product::orderByDesc('created_at')->take(8)->get();
+        return view('front.products', compact('products'));
     }
     
     public function featureProducts()

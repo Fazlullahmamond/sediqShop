@@ -52,7 +52,7 @@ Route::get('/redirectTo', function () {
 
 
 
-
+// front pages
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/privacy', [FrontController::class, 'privacy'])->name('front.privacy');
 
