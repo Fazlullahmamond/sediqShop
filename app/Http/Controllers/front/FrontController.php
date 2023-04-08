@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\ContactUs;
 use App\Models\Product;
@@ -30,9 +31,19 @@ class FrontController extends Controller
     
     public function featureProducts()
     {
-        return view('front.feature-products');
+        $products = Product::where('feature', true)->orderByDesc('created_at')->take(6)->get();
+        return view('front.feature-products', compact('products'));
     }
 
+    //return product details page
+    public function productDetails($id)
+    {
+        $recent_products = Product::orderByDesc('created_at')->take(4)->get();
+        $product = Product::find($id);
+        return view('front.productDetails',  compact(['product', 'recent_products']));
+    }
+
+    
     public function hotOffers()
     {
         return view('front.hot-offers');
@@ -40,7 +51,8 @@ class FrontController extends Controller
 
     public function blog()
     {
-        return view('front.blog');
+        $blogs = Blog::orderByDesc('created_at')->take(12)->get();
+        return view('front.blog', compact('blogs'));
     }
 
     public function contactUs()

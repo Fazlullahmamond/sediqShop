@@ -56,9 +56,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $appends = [
-        'profile_photo_url',
+        'image',
     ];
 
+    /**
+     * The function that are make relationship between user and user news feed.
+     *
+     * @method
+     */
+    public function  getImageAttribute()
+    {
+        $image =  $this->profile_photo_path;
+        if (!$image || $image == "0") {
+            return '/storage/users/1.jpg';
+        } else {
+            return $image;
+        }
+    }
 
     public function addresses()
     {

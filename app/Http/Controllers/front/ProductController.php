@@ -64,12 +64,7 @@ class ProductController extends Controller
         //
     }
 
-    //return product details page
-    public function productDetails($id)
-    {
-        $product = Product::find($id);
-        return view('front.productDetails', ['product' => $product]);
-    }
+
 
     public function categoryDetails($id)
     {
