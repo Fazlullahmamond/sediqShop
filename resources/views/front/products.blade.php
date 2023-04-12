@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-left-sidebar.html">{{ $product->title }}</a></h5>
+                            <h5 class="ec-pro-title"><a href="{{ route('product.details', $product->id) }}">{{ $product->title }}</a></h5>
                             <div class="ec-pro-rating">
                                 @php
                                     $average_review = $product->productReviews->avg('rating');

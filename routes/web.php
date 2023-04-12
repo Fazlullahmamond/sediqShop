@@ -60,10 +60,12 @@ Route::get('/feature-products', [FrontController::class, 'featureProducts'])->na
 Route::get('/product/{id}', [FrontController::class, 'productDetails'])->name('product.details');
 
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
+Route::get('/blog/{id}', [FrontController::class, 'blogDetails'])->name('blog.details');
+
+Route::get('/about-us', [FrontController::class, 'aboutUs'])->name('front.aboutUs');
+Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.contactUs');
 
 Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
-Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.contactUs');
-Route::get('/about-us', [FrontController::class, 'aboutUs'])->name('front.aboutUs');
 
 Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
 
