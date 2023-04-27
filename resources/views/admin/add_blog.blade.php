@@ -8,6 +8,8 @@
 
 @section('main')
 
+{{-- checking --}}
+
 			<!-- CONTENT WRAPPER -->
 			<div class="ec-content-wrapper">
 				<div class="content">
