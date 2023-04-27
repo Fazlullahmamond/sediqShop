@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\BlogController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\SubCategoryController;
+use App\Http\Controllers\admin\UserController as AdminUsersController;
+use App\Http\Controllers\admin\ProductController;
+
 use App\Http\Controllers\front\FrontController;
-use App\Http\Controllers\front\ProductController;
-use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -53,11 +57,14 @@ Route::get('/redirectTo', function () {
 
 
 // front pages
+Route::get('/searchProduct', [FrontController::class, 'search'])->name('front.search');
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/privacy', [FrontController::class, 'privacy'])->name('front.privacy');
 Route::get('/products', [FrontController::class, 'products'])->name('front.products');
 Route::get('/feature-products', [FrontController::class, 'featureProducts'])->name('front.featureProducts');
 Route::get('/product/{id}', [FrontController::class, 'productDetails'])->name('product.details');
+Route::get('/category/{id}', [FrontController::class, 'categoryProducts'])->name('category.products');
+
 
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/blog/{id}', [FrontController::class, 'blogDetails'])->name('blog.details');
@@ -67,9 +74,10 @@ Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.co
 
 Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
 
-Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
+// Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
 
 
+Route::post('/newsletter/subscribe', [FrontController::class, 'subscribe'])->name('newsletter.subscribe');
 
 
 
@@ -86,10 +94,14 @@ Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->nam
 // admin pages route here
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-//     Route::resource('categories', 'CategoryController');
-//     Route::resource('subcategories', 'SubCategoryController');
-//     Route::resource('products', 'ProductController');
-//     Route::resource('blogs', 'BlogController');
+    Route::get('/contact', [AdminController::class, 'contact'])->name('admin.contact');
+    Route::resource('categories', CategoryController::class);
+    Route::resource('subcategories', SubCategoryController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('adminUsers', AdminUsersController::class);
+    Route::resource('blog', BlogController::class);
+    Route::get('/reviews', [ProductController::class, 'product_reviews'])->name('product.reviews');
+
 });
 
 
@@ -103,9 +115,4 @@ Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function (
 //     Route::resource('products.reviews', 'ProductReviewController');
 //     Route::resource('cart.items', 'CartItemsController');
 //     Route::resource('wishlist', 'WishlistController');
-//     // Subscribe to newsletter
-//     Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-//     // Unsubscribe from newsletter
-
-//     Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 });

@@ -13,7 +13,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         $subcategories = SubCategory::all();
-        return view('subcategories.index', compact('subcategories'));
+        return view('admin.all_subcategories', compact('subcategories'));
     }
 
 

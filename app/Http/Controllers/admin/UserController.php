@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\front;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\Models\ProductReview;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::all();
-        return view('admin.list_products', compact('products'));
+        $users = User::where('role', 0)->get();
+        return view('admin.all_users', compact('users'));
     }
 
     /**
@@ -25,7 +24,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('admin.add_product');
+        return view('admin.add_users');
     }
 
     /**
@@ -66,21 +65,5 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-
-
-    public function categoryDetails($id)
-    {
-        //
-        $products = Product::where('sub_category_id', $id)->get();
-        return view('front.productDetails', ['products' => $products]);
-    }
-
-    public function product_reviews()
-    {
-        //
-        $product_reviews = ProductReview::all();
-        return view('admin.product_reviews', compact('product_reviews'));
     }
 }

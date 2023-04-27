@@ -57,6 +57,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'image',
+        'full_address',
     ];
 
     /**
@@ -74,9 +75,18 @@ class User extends Authenticatable
         }
     }
 
+    public function  getFullAddressAttribute()
+    {
+        if($this->addresses){
+            return $this->addresses?->state?->name .', '. $this->addresses?->address_line;
+        } else{
+            return "User Address is not available";
+        }
+    }
+
     public function addresses()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasOne(Address::class)->select('id', 'post_code', 'address_line', 'state_id');;
     }
 
     public function productReviews()
@@ -86,12 +96,12 @@ class User extends Authenticatable
 
     public function wishlist()
     {
-        return $this->belongsToMany(Product::class, 'wishlist', 'user_id', 'product_id')->withTimestamps();
+        return $this->hasMany(Wishlist::class);
     }
 
     public function cartItems()
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany(CartItems::class);
     }
 
     public function orders()
