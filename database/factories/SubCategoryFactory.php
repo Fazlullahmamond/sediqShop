@@ -22,6 +22,7 @@ class SubCategoryFactory extends Factory
             'description' => $this->faker->sentence(4),
             'image' => $this->faker->image(),
             'category_id' => Category::inRandomOrder()->first()->id,
+            'status' => $this->faker->numberBetween(1, 3),
         ];
     }
 }

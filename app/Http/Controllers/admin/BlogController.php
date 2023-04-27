@@ -15,14 +15,14 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::all();
-        return view('blogs.index', compact('blogs'));
+        return view('admin.list_blogs', compact('blogs'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('blogs.create');
+        return view('admin.add_blog');
     }
 
     /**

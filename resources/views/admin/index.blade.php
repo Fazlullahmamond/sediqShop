@@ -1,3 +1,7 @@
+@php
+    $menu = ['dashboard'=> 'active', 'user'=> 'has-sub', 'category'=> 'has-sub', 'product'=> 'has-sub', 'order'=> 'has-sub', 'blog'=> 'has-sub', 'review'=> '', 'contact'=> ''];
+@endphp
+
 @extends('admin.components.layout')
 
 
@@ -711,4 +715,18 @@
 					</div>
 				</div> <!-- End Content -->
 			</div> <!-- End Content Wrapper -->
+@endsection
+
+
+@section('scripts')
+    <!-- Datatables -->
+	<script src="{{ asset('back/assets/plugins/data-tables/jquery.datatables.min.js') }}"></script>
+	<script src="{{ asset('back/assets/plugins/data-tables/datatables.bootstrap5.min.js') }}"></script>
+	<script src="{{ asset('back/assets/plugins/data-tables/datatables.responsive.min.js') }}"></script>
+@endsection
+
+@section('styles')
+	<!-- Data Tables -->
+	<link href="{{ asset('back/assets/plugins/data-tables/datatables.bootstrap5.min.css') }}" rel='stylesheet'>
+	<link href="{{ asset('back/assets/plugins/data-tables/responsive.datatables.min.css') }}" rel='stylesheet'>
 @endsection

@@ -13,10 +13,10 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                                 <div class="ec-slide-content slider-animation">
-                                    <h1 class="ec-slide-title">New Fashion Collection</h1>
-                                    <h2 class="ec-slide-stitle">Sale Offer</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</p>
-                                    <a href="#" class="btn btn-lg btn-secondary">Order Now</a>
+                                    <h1 class="ec-slide-title" style="color: white;">New Fashion Collection</h1>
+                                    <h2 class="ec-slide-stitle" style="color: white;">Sale Offer</h2>
+                                    <p style="color: white;">Hurry up and buy our new fashion products.</p>
+                                    <a href="{{ route('front.products') }}" class="btn btn-lg btn-secondary">Order Now</a>
                                 </div>
                             </div>
                         </div>
@@ -27,10 +27,10 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                                 <div class="ec-slide-content slider-animation">
-                                    <h1 class="ec-slide-title">Boat Headphone Sets</h1>
-                                    <h2 class="ec-slide-stitle">Sale Offer</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</p>
-                                    <a href="#" class="btn btn-lg btn-secondary">Order Now</a>
+                                    <h1 class="ec-slide-title" style="color: white;">New Fashion Collection</h1>
+                                    <h2 class="ec-slide-stitle" style="color: white;">Sale Offer</h2>
+                                    <p style="color: white;">Hurry up and buy our new fashion products.</p>
+                                    <a href="{{ route('front.products') }}" class="btn btn-lg btn-secondary">Order Now</a>
                                 </div>
                             </div>
                         </div>
