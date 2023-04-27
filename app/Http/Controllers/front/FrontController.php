@@ -62,6 +62,13 @@ class FrontController extends Controller
         return view('front.blog', compact('blogs'));
     }
 
+    public function blogDetails($id)
+    {
+        // $recent_blogs = Blog::orderByDesc('created_at')->take(4)->get();
+        $blog = Blog::find($id);
+        return view('front.blogDetails',  compact('blog'));
+    }
+
     public function contactUs()
     {
         return view('front.contact');
