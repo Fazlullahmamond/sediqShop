@@ -40,18 +40,22 @@ class DatabaseSeeder extends Seeder
         Category::factory()->create([
             'name' => 'For Men',
             'description' => 'This category products belongs to men.',
+            'status' => 1,
         ]);
         Category::factory()->create([
             'name' => 'For Women',
             'description' => 'This category products belongs to women.',
+            'status' => 1,
         ]);
         Category::factory()->create([
             'name' => 'For Children',
             'description' => 'This category products belongs to children.',
+            'status' => 1,
         ]);
         Category::factory()->create([
             'name' => 'For All',
             'description' => 'This category products belongs to all.',
+            'status' => 1,
         ]);
 
         SubCategory::factory(20)->create();
@@ -62,6 +66,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
+            'gender' => 1,
             'role' => 1,
             'email_verified_at' => Carbon::now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -73,6 +78,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'user',
             'email' => 'user@gmail.com',
+            'gender' => 0,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'two_factor_secret' => null,

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\ContactUs;
+use App\Models\Newsletter;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -25,10 +26,10 @@ class FrontController extends Controller
 
     public function products()
     {
-        $products = Product::orderByDesc('created_at')->take(8)->get();
+        $products = Product::orderByDesc('created_at')->paginate(8);
         return view('front.products', compact('products'));
     }
-    
+
     public function featureProducts()
     {
         $products = Product::where('feature', true)->orderByDesc('created_at')->take(6)->get();
@@ -38,12 +39,18 @@ class FrontController extends Controller
     //return product details page
     public function productDetails($id)
     {
+        $categories = Category::all();
         $recent_products = Product::orderByDesc('created_at')->take(4)->get();
         $product = Product::find($id);
-        return view('front.productDetails',  compact(['product', 'recent_products']));
+        return view('front.productDetails',  compact(['product', 'recent_products', 'categories']));
     }
 
-    
+    public function categoryProducts($id)
+    {
+        $products = Product::where('sub_category_id', $id)->orderByDesc('created_at')->paginate(8);
+        return view('front.categoryProducts', compact('products'));
+    }
+
     public function hotOffers()
     {
         return view('front.hot-offers');
@@ -118,4 +125,29 @@ class FrontController extends Controller
 
         return redirect()->back()->with('success', 'Your message has been submitted successfully.');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('title', 'LIKE', "%$query%")->get();
+        return response()->json($products);
+    }
+
+    
+    public function subscribe(Request $request)
+    {
+        $validatedData = $request->validate([
+            'news_email' => 'required|email|unique:newsletters,email',
+        ]);
+
+
+        $newsletter = Newsletter::create([
+            'email' => $validatedData['news_email'],
+        ]);
+
+        return response()->json([
+            'message' => 'You have successfully subscribed to our newsletter!',
+        ]);
+    }
+
 }

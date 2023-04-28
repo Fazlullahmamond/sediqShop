@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
@@ -38,6 +39,10 @@
     <link rel="stylesheet" href="{{ asset('front/assets/css/demo1.css') }}" />
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('front/assets/css/responsive.css') }}" />
+
+    {{-- Sweet Alert --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+
 
     <!-- Background css -->
     <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('front/assets/css/backgrounds/bg-4.css') }}">
@@ -77,9 +82,10 @@
                             <div class="header-search">
                                 <form class="ec-btn-group-form" action="#">
                                     <input class="form-control ec-search-bar" placeholder="Search products..."
-                                        type="text">
-                                    <button class="submit" type="submit"><i class="fi-rr-search"></i></button>
+                                    type="text" id="searchProduct1">
+                                    <button class="submit" type=""><i class="fi-rr-search"></i></button>
                                 </form>
+                                <div id="search-results1" style="position: absolute; z-index: 1; background-color: white; width: 500px; padding: 20px; box-shadow: black 10px 10px 20px; display:none;"></div>
                             </div>
                         </div>
                         <!-- Ec Header Search End -->
@@ -125,13 +131,25 @@
                                 <!-- Header wishlist Start -->
                                 <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
                                     <div class="header-icon"><i class="fi-rr-heart"></i></div>
-                                    <span class="ec-header-count">4</span>
+                                    <span class="ec-header-count">
+                                        @if (auth()->guest())
+                                            +
+                                        @else
+                                            {{ Auth::user()->wishlist->count(); }}
+                                        @endif
+                                    </span>
                                 </a>
                                 <!-- Header wishlist End -->
                                 <!-- Header Cart Start -->
                                 <a href="#ec-side-cart" class="ec-header-btn ec-side-toggle">
                                     <div class="header-icon"><i class="fi-rr-shopping-bag"></i></div>
-                                    <span class="ec-header-count cart-count-lable">3</span>
+                                    <span class="ec-header-count cart-count-lable">
+                                        @if (auth()->guest())
+                                            +
+                                        @else
+                                            {{ Auth::user()->cartItems->count(); }}
+                                        @endif
+                                    </span>
                                 </a>
                                 <!-- Header Cart End -->
                             </div>
@@ -160,9 +178,10 @@
                     <div class="col">
                         <div class="header-search">
                             <form class="ec-btn-group-form" action="#">
-                                <input class="form-control ec-search-bar" placeholder="Search products..." type="text">
-                                <button class="submit" type="submit"><i class="fi-rr-search"></i></button>
+                                <input class="form-control ec-search-bar" placeholder="Search products..." type="text" id="searchProduct2">
+                                <button class="submit" type=""><i class="fi-rr-search"></i></button>
                             </form>
+                            <div id="search-results2" style="position: absolute; z-index: 1; background-color: white; width: 300px; padding: 20px; box-shadow: black 10px 10px 20px; display:none;"></div>
                         </div>
                     </div>
                     <!-- Ec Header Search End -->
@@ -191,7 +210,7 @@
                                                 @if(count($category->subcategories))
                                                 @foreach($category->subcategories as $subcategory)
                                                     @if ($subcategory->products->count())
-                                                        <li><a href="{{ route('category.details', $subcategory->id) }}">{{ $subcategory->name }}</a></li>
+                                                        <li><a href="{{ route('category.products', $subcategory->id) }}">{{ $subcategory->name }}</a></li>
                                                     @endif
                                                 @endforeach
                                                 @endif
@@ -233,7 +252,7 @@
                                             @if(count($category->subcategories))
                                                 @foreach($category->subcategories as $subcategory)
                                                     @if ($subcategory->products->count())
-                                                        <li><a href="{{ route('category.details', $subcategory->id) }}">{{ $subcategory->name }}</a></li>
+                                                        <li><a href="{{ route('category.products', $subcategory->id) }}">{{ $subcategory->name }}</a></li>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -282,74 +301,103 @@
     <div class="ec-side-cart-overlay"></div>
     <div id="ec-side-cart" class="ec-side-cart">
         <div class="ec-cart-inner">
-            <div class="ec-cart-top">
-                <div class="ec-cart-title">
-                    <span class="cart_title">My Cart</span>
-                    <button class="ec-close">×</button>
+            @if (auth()->guest())
+                <div class="ec-cart-top">
+                    <div class="ec-cart-title">
+                        <span class="cart_title">My Cart</span>
+                        <button class="ec-close">×</button>
+                    </div>
+                    <ul class="eccart-pro-items">
+                        <li>
+                            Please <a href="{{ route("login") }}">&nbsp; login &nbsp;</a> to your account.
+                        </li>
+                    </ul>
                 </div>
-                <ul class="eccart-pro-items">
-                    <li>
-                        <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                src="{{ asset('front/assets/images/product-image/6_1.jpg') }}" alt="product"></a>
-                        <div class="ec-pro-content">
-                            <a href="product-left-sidebar.html" class="cart_pro_title">T-shirt For Women</a>
-                            <span class="cart-price"><span>$76.00</span> x 1</span>
-                            <div class="qty-plus-minus">
-                                <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
-                            </div>
-                            <a href="javascript:void(0)" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                src="{{ asset('front/assets/images/product-image/12_1.jpg') }}" alt="product"></a>
-                        <div class="ec-pro-content">
-                            <a href="product-left-sidebar.html" class="cart_pro_title">Women Leather Shoes</a>
-                            <span class="cart-price"><span>$64.00</span> x 1</span>
-                            <div class="qty-plus-minus">
-                                <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
-                            </div>
-                            <a href="javascript:void(0)" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                src="{{ asset('front/assets/images/product-image/3_1.jpg') }}" alt="product"></a>
-                        <div class="ec-pro-content">
-                            <a href="product-left-sidebar.html" class="cart_pro_title">Girls Nylon Purse</a>
-                            <span class="cart-price"><span>$59.00</span> x 1</span>
-                            <div class="qty-plus-minus">
-                                <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
-                            </div>
-                            <a href="javascript:void(0)" class="remove">×</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="ec-cart-bottom">
-                <div class="cart-sub-total">
-                    <table class="table cart-table">
-                        <tbody>
-                            <tr>
-                                <td class="text-left">Sub-Total :</td>
-                                <td class="text-right">$300.00</td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">VAT (20%) :</td>
-                                <td class="text-right">$60.00</td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">Total :</td>
-                                <td class="text-right primary-color">$360.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="ec-cart-bottom">
+                    <div class="cart-sub-total">
+                        <table class="table cart-table">
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart_btn">
+                        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                        <a href="{{ route('register') }}" class="btn btn-secondary">Signup</a>
+                    </div>
                 </div>
-                <div class="cart_btn">
-                    <a href="cart.html" class="btn btn-primary">View Cart</a>
-                    <a href="checkout.html" class="btn btn-secondary">Checkout</a>
+            @else
+                <div class="ec-cart-top">
+                    <div class="ec-cart-title">
+                        <span class="cart_title">My Cart</span>
+                        <button class="ec-close">×</button>
+                    </div>
+
+                    @if (Auth::user()->cartItems)
+                        @foreach (Auth::user()->cartItems as $item)
+                            <ul class="eccart-pro-items" style="margin-bottom: 20px;">
+                                <li>
+                                    <a href="{{ route('product.details', $item->product->id) }}" class="sidekka_pro_img"><img
+                                            src="{{ $item->product->image }}" alt="product"></a>
+                                    <div class="ec-pro-content">
+                                        <a href="{{ route('product.details', $item->product->id) }}" class="cart_pro_title">{{ $item->product->title }}</a>
+                                        <span class="cart-price"><span>${{ $item->product->price }}</span> x {{ $item->product->quantity }} </span>
+                                        @if($item->product->discount > 0)
+                                            {{ $item->product->discount }} % OFF
+                                        @endif
+                                        <a href="{{ route('product.details', $item->product->id) }}" class="cart_pro_title">View product</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        @endforeach
+                    @else
+                        <ul class="eccart-pro-items">
+                            <li>
+                                <a href="{{ route('front.products') }}">add products</a> to your cart.
+                            </li>
+                        </ul>
+                    @endif
                 </div>
-            </div>
+                <div class="ec-cart-bottom">
+                    <div class="cart-sub-total">
+                        <table class="table cart-table">
+                            <tbody>
+                                <tr>
+                                    @php
+                                        $totalPrice = 0;
+                                    @endphp
+
+                                    @foreach(Auth::user()->cartItems as $cartItem)
+                                        @if($cartItem->product->discount > 0)
+                                            @php
+                                                $price = $cartItem->product->price - ($cartItem->product->price * $cartItem->product->discount / 100);
+                                            @endphp
+                                        @else
+                                            @php
+                                                $price = $cartItem->product->price;
+                                            @endphp
+                                        @endif
+
+                                        @php
+                                            $subtotal = $price * $cartItem->quantity;
+                                            $totalPrice += $subtotal;
+                                        @endphp
+                                    @endforeach
+                                    @php
+                                        $totalPrice = number_format((float)$subtotal, 2, '.', '');
+                                    @endphp
+
+                                    <td class="text-left">Total :</td>
+                                    <td class="text-right primary-color">${{ $totalPrice }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart_btn">
+                        <a href="cart.html" class="btn btn-primary">View Cart</a>
+                        <a href="checkout.html" class="btn btn-secondary">Checkout</a>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     <!-- ekka Cart End -->
@@ -377,7 +425,7 @@
                                                     @if ($subcategory->products->count())
                                                         <li>
                                                             <div class="ec-sidebar-sub-item"><a
-                                                                    href="{{ route('category.details', $subcategory->id) }}">{{ $subcategory->name }} <span
+                                                                    href="{{ route('category.products', $subcategory->id) }}">{{ $subcategory->name }} <span
                                                                         title="Available Stock">- {{ $subcategory->products->count() }}</span></a>
                                                             </div>
                                                         </li>
@@ -528,16 +576,17 @@
                                         <li class="ec-footer-link">Get instant updates about our new products and special promos!</li>
                                     </ul>
                                     <div class="ec-subscribe-form">
-                                        <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                            action="#">
-                                            <div id="ec_news_signup" class="ec-form">
-                                                <input class="ec-email" type="email" required=""
-                                                    placeholder="Enter your email here..." name="ec-email" value="" />
-                                                <button id="ec-news-btn" class="button btn-primary" type="submit"
-                                                    name="subscribe" value=""><i class="ecicon eci-paper-plane-o"
-                                                        aria-hidden="true"></i></button>
-                                            </div>
-                                        </form>
+                                        <div id="ec-newsletter-form" name="ec-newsletter-form" >
+                                            <form id="newsletter-form" name="ec-newsletter-form" method="POST" action="{{ route('newsletter.subscribe') }}">
+                                                <div id="ec_news_signup" class="ec-form">
+                                                    <input class="ec-email" type="email" required="" id="newsEmail"
+                                                        placeholder="Enter your email here..." name="news_email" value="" />
+                                                    <button id="ec-news-btn" class="button btn-primary" type="submit">
+                                                        <i class="ecicon eci-paper-plane-o" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -604,14 +653,26 @@
                 <div class="ec-nav-panel-icons">
                     <a href="#ec-side-cart" class="toggle-cart ec-header-btn ec-side-toggle"><i
                             class="fi-rr-shopping-bag"></i><span
-                            class="ec-cart-noti ec-header-count cart-count-lable">3</span></a>
+                            class="ec-cart-noti ec-header-count cart-count-lable">
+                            @if (auth()->guest())
+                                +
+                            @else
+                                {{ Auth::user()->cartItems->count(); }}
+                            @endif
+                    </span></a>
                 </div>
                 <div class="ec-nav-panel-icons">
                     <a href="{{ route('front.index') }}" class="ec-header-btn"><i class="fi-rr-home"></i></a>
                 </div>
                 <div class="ec-nav-panel-icons">
                     <a href="wishlist.html" class="ec-header-btn"><i class="fi-rr-heart"></i><span
-                            class="ec-cart-noti">4</span></a>
+                            class="ec-cart-noti">
+                            @if (auth()->guest())
+                                +
+                            @else
+                                {{ Auth::user()->wishlist->count(); }}
+                            @endif
+                        </span></a>
                 </div>
                 <div class="ec-nav-panel-icons">
                     <a href="login.html" class="ec-header-btn"><i class="fi-rr-user"></i></a>
@@ -803,9 +864,110 @@
     <script src="{{ asset('front/assets/js/vendor/index.js') }}"></script>
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
 
+    {{-- Sweet Alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+
 
     @yield('scripts')
 
 </body>
+
+
+<script>
+    $(document).ready(function() {
+        $('#newsletter-form').submit(function(event) {
+            event.preventDefault();
+            var news_email = $("#newsEmail");
+            $("#ec-news-btn").attr("disabled", true);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: $(this).attr('action'), // form action URL
+                type: $(this).attr('method'), // form method
+                data: news_email,
+                success: function(response) {
+                    Swal.fire("Success!", "You are now subscribed to our newsletter.", "success"); // show success message
+                    $('#newsletter-form')[0].reset(); // reset form
+                    $("#ec-news-btn").attr("disabled", false);
+                },
+                error: function(xhr) {
+                    var err = JSON.parse(xhr.responseText)
+                    console.log(err);
+                    Swal.fire("Error!", err['message'], "error"); // show error message
+                    $("#ec-news-btn").attr("disabled", false);
+                }
+            });
+        });
+
+        const selectElement = document.querySelector('#searchProduct1');
+        selectElement.addEventListener('input', (event) => {
+        var query = $('#searchProduct1').val();
+            $.ajax({
+            url: '/searchProduct',
+            data: {query: query},
+            success: function(response) {
+                var results = response;
+                var dropdown = $('#search-results1');
+                dropdown.show();
+                dropdown.empty();
+                if (results.length > 0) {
+                $.each(results, function(index, result) {
+                    var link = '<a href="/product/'+result.id+'">'+result.title+'</a>';
+                    dropdown.append('<div class="result">'+link+'</div>');
+                });
+                } else {
+                dropdown.append('<div class="no-results">No results found</div>');
+                }
+                dropdown.show();
+            },
+            error: function(response) {
+                alert(response);
+            }
+            });
+    });
+
+    $(document).click(function() {
+        $('#search-results1').hide();
+    });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        const selectElement = document.querySelector('#searchProduct2');
+        selectElement.addEventListener('input', (event) => {
+        var query = $('#searchProduct2').val();
+            $.ajax({
+            url: '/searchProduct',
+            data: {query: query},
+            success: function(response) {
+                var results = response;
+                var dropdown = $('#search-results2');
+                dropdown.empty();
+                dropdown.show();
+                if (results.length > 0) {
+                $.each(results, function(index, result) {
+                    var link = '<a href="/product/'+result.id+'">'+result.title+'</a>';
+                    dropdown.append('<div class="result">'+link+'</div>');
+                });
+                } else {
+                dropdown.append('<div class="no-results">No results found</div>');
+                }
+                dropdown.show();
+            },
+            error: function(response) {
+                alert(response);
+            }
+            });
+    });
+
+        $(document).click(function() {
+            $('#search-results2').hide();
+        });
+    });
+</script>
+
 
 </html>

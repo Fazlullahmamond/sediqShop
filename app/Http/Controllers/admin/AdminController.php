@@ -12,4 +12,11 @@ class AdminController extends Controller
     {
         return view('admin.index');
     }
+
+
+    //
+    public function contact()
+    {
+        return view('admin.contact');
+    }
 }

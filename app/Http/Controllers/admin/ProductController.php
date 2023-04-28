@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductReview;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,6 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::all();
+        return view('admin.list_products', compact('products'));
     }
 
     /**
@@ -23,6 +26,7 @@ class ProductController extends Controller
     public function create()
     {
         //
+        return view('admin.add_product');
     }
 
     /**
@@ -157,4 +161,11 @@ class ProductController extends Controller
         return response()->json(null, 204);
     }
 
+
+    public function product_reviews()
+    {
+        //
+        $product_reviews = ProductReview::all();
+        return view('admin.product_reviews', compact('product_reviews'));
+    }
 }
