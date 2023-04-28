@@ -482,11 +482,11 @@
                                 <h4 class="ec-footer-heading">Information</h4>
                                 <div class="ec-footer-links">
                                     <ul class="align-items-center">
-                                        <li class="ec-footer-link"><a href="about-us.html">About us</a></li>
-                                        <li class="ec-footer-link"><a href="faq.html">FAQ</a></li>
-                                        <li class="ec-footer-link"><a href="track-order.html">Delivery Information</a>
+                                        <li class="ec-footer-link"><a href="{{ route('front.aboutUs') }}">About us</a></li>
+                                        <li class="ec-footer-link"><a href="{{ route('front.faq') }}">FAQ</a></li>
+                                        <li class="ec-footer-link"><a href="{{ route('front.deliveryInformation') }}">Delivery Information</a>
                                         </li>
-                                        <li class="ec-footer-link"><a href="contact-us.html">Contact us</a></li>
+                                        <li class="ec-footer-link"><a href="{{ route('front.contactUs') }}">Contact us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -512,7 +512,7 @@
                                         <li class="ec-footer-link"><a href="track-order.html">Discount Returns</a></li>
                                         <li class="ec-footer-link"><a href="{{ route('front.privacy') }}">Privacy Policy </a>
                                         </li>
-                                        <li class="ec-footer-link"><a href="terms-condition.html">Customer Service</a>
+                                        <li class="ec-footer-link"><a href="{{ route('front.customer') }}">Customer Service</a>
                                         </li>
                                         <li class="ec-footer-link"><a href="terms-condition.html">Term & condition</a>
                                         </li>

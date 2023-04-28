@@ -57,9 +57,9 @@ class FrontController extends Controller
 
     public function blogDetails($id)
     {
-        // $recent_blogs = Blog::orderByDesc('created_at')->take(4)->get();
         $blog = Blog::find($id);
-        return view('front.blogDetails',  compact('blog'));
+        $recent_blogs = Blog::orderByDesc('created_at')->take(6)->get();
+        return view('front.blogDetails',  compact(['blog', 'recent_blogs']));
     }
 
     public function contactUs()
@@ -67,10 +67,31 @@ class FrontController extends Controller
         return view('front.contact');
     }
 
+    public function faq()
+    {
+        return view('front.faq');
+    }
+
+    public function deliveryInformation()
+    {
+        return view('front.deliveryInformation');
+    }
+
     public function aboutUs()
     {
         return view('front.about');
     }
+
+    public function policy()
+    {
+        return view('front.policy');
+    }
+
+    public function customer()
+    {
+        return view('front.customer');
+    }
+
 
 
 

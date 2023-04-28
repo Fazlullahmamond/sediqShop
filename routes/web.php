@@ -70,6 +70,11 @@ Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.ho
 Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
 
 
+Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
+Route::get('/customer', [FrontController::class, 'customer'])->name('front.customer');
+Route::get('/deliveryInformation', [FrontController::class, 'deliveryInformation'])->name('front.deliveryInformation');
+
+
 
 
 
