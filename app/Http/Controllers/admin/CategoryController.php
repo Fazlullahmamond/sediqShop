@@ -31,10 +31,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = array();
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
-        $data['image'] = $imageName;
-        $img_loc = 'storage/images/categories/';
-        request()->image->move($img_loc , $imageName);
+        if(request()->image){
+            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+            $data['image'] = $imageName;
+            $img_loc = 'storage/images/categories/';
+            request()->image->move($img_loc , $imageName);
+        } 
         $data['name'] = $request->name;
         $data['description'] = $request->description;
         DB::table('categories')->insert($data);
@@ -79,10 +81,12 @@ class CategoryController extends Controller
     // }
     {
         $category = Category::find($id);
-        $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-        $data['image'] = $imageName;
-        $img_loc = 'storage/images/categories/';
-        request()->image->move($img_loc , $imageName);
+        if(request()->image){
+            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+            $data['image'] = $imageName;
+            $img_loc = 'storage/images/categories/';
+            request()->image->move($img_loc , $imageName);
+        } 
         $data['name'] = $request->name;
         $data['description'] = $request->description;
         DB::table('categories')->where('id',$id)->update($data);
