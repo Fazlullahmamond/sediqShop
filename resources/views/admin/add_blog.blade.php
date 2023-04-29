@@ -7,9 +7,6 @@
 
 
 @section('main')
-
-
-
 			<!-- CONTENT WRAPPER -->
 			<div class="ec-content-wrapper">
 				<div class="content">

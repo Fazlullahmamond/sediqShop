@@ -74,7 +74,12 @@ Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.co
 
 Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
 
-// Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
+Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
+
+
+Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
+Route::get('/customer', [FrontController::class, 'customer'])->name('front.customer');
+Route::get('/deliveryInformation', [FrontController::class, 'deliveryInformation'])->name('front.deliveryInformation');
 
 
 Route::post('/newsletter/subscribe', [FrontController::class, 'subscribe'])->name('newsletter.subscribe');
