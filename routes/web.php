@@ -110,7 +110,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
 // user pages route here
 Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
-    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('/dashboard', [AdminUsersController::class, 'dashboard'])->name('user.dashboard');
 //     Route::resource('user.addresses', 'UserAddressController');
 //     Route::resource('products.reviews', 'ProductReviewController');
 //     Route::resource('cart.items', 'CartItemsController');
