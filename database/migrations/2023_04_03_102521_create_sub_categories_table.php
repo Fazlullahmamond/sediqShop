@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('category_id')->constrained();
-            $table->integer('status')->default(1); //1-active 0-not active
+            $table->boolean('status')->default(1); //1-active 0-not active
             $table->timestamps();
         });
     }

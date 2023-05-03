@@ -37,7 +37,7 @@
 													<div class="avatar-upload">
 														<div class="avatar-edit">
 															<input type='file' id="imageUpload" class="ec-image-upload"
-																accept=".png, .jpg, .jpeg" />
+																accept=".png, .jpg, .jpeg" name='image'/>
 															<label for="imageUpload"><img
 																	src="{{ asset('back/assets/img/icons/edit.svg') }}"
 																	class="svg_img header_svg" alt="edit" /></label>
@@ -161,35 +161,26 @@
 											<div class="ec-vendor-upload-detail">
 												<form class="row g-3">
 													<div class="col-md-6">
-														<label for="inputEmail4" class="form-label">Product name</label>
-														<input type="text" class="form-control slug-title" id="inputEmail4">
+														<label for="Productname" class="form-label">Product name</label>
+														<input type="text" class="form-control slug-title" id="Productname" name='product_name' >
 													</div>
 													<div class="col-md-6">
 														<label class="form-label">Select Categories</label>
 														<select name="categories" id="Categories" class="form-select">
-															<optgroup label="Fashion">
-																<option value="t-shirt">T-shirt</option>
-																<option value="dress">Dress</option>
-															</optgroup>
-															<optgroup label="Furniture">
-																<option value="table">Table</option>
-																<option value="sofa">Sofa</option>
-															</optgroup>
-															<optgroup label="Electronic">
-																<option value="phone">I Phone</option>
-																<option value="laptop">Laptop</option>
-															</optgroup>
+															@foreach ($categories as $categories)
+															<option value="{{$categories->id}}">{{$categories->name}}</option>		
+															@endforeach
 														</select>
 													</div>
 													<div class="col-md-12">
 														<label for="slug" class="col-12 col-form-label">Slug</label> 
 														<div class="col-12">
-															<input id="slug" name="slug" class="form-control here set-slug" type="text">
+															<input id="slug" name="slug" class="form-control here set-slug" type="text" value="">
 														</div>
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Sort Description</label>
-														<textarea class="form-control" rows="2"></textarea>
+														<textarea class="form-control" rows="2" name='description'></textarea>
 													</div>
 													<div class="col-md-4 mb-25">
 														<label class="form-label">Colors</label>
@@ -209,40 +200,44 @@
 													<div class="col-md-8 mb-25">
 														<label class="form-label">Size</label>
 														<div class="form-checkbox-box">
+															@foreach ($sizes as $sizes)
 															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
-																<label>S</label>
+																<input type="checkbox" name="size" value="{{$sizes->id}}">
+																<label>{{$sizes->name}}</label>
 															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
+																
+															@endforeach
+															
+															{{-- <div class="form-check form-check-inline">
+																<input type="checkbox" name="size2" value="size">
 																<label>M</label>
 															</div>
 															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
+																<input type="checkbox" name="size3" value="size">
 																<label>L</label>
 															</div>
 															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
+																<input type="checkbox" name="size4" value="size">
 																<label>XL</label>
 															</div>
 															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
+																<input type="checkbox" name="size5" value="size">
 																<label>XXL</label>
-															</div>
+															</div> --}}
 														</div>
 													</div>
 													<div class="col-md-6">
 														<label class="form-label">Price <span>( In USD
 																)</span></label>
-														<input type="number" class="form-control" id="price1">
+														<input type="number" class="form-control" id="price1" name='price'>
 													</div>
 													<div class="col-md-6">
 														<label class="form-label">Quantity</label>
-														<input type="number" class="form-control" id="quantity1">
+														<input type="number" class="form-control" id="quantity1" name='quantity'>
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Ful Detail</label>
-														<textarea class="form-control" rows="4"></textarea>
+														<textarea class="form-control" rows="4" name='ful_detail'></textarea>
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Product Tags <span>( Type and

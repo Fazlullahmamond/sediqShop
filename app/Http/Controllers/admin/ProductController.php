@@ -7,6 +7,10 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\size;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
@@ -25,8 +29,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.add_product');
+        $categories = Category::all();
+        $sizes = size::All();
+        return view('admin.add_product',compact('categories','sizes'));
+       
     }
 
     /**
@@ -53,21 +59,45 @@ class ProductController extends Controller
         $product = Product::create($validatedData);
 
         // create the product sizes
-        $sizes = $request->input('sizes', []);
-        $product->sizes()->createMany($sizes);
+        // $sizes = $request->input('sizes', []);
+        // $product->sizes()->createMany($sizes);
 
-        // Upload and save the product images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('products');
-                $productImage = new ProductImage([
-                    'image_path' => $imagePath,
-                ]);
-                $product->images()->save($productImage);
-            }
-        }
+        // // Upload and save the product images
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $imagePath = $image->store('products');
+        //         $productImage = new ProductImage([
+        //             'image_path' => $imagePath,
+        //         ]);
+        //         $product->images()->save($productImage);
+        //     }
+        // }
+        $data = array();
+        if(request()->image){
+            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+            $data['image'] = $imageName;
+            $img_loc = 'storage/images/products/';
+            request()->image->move($img_loc , $imageName);
+        } 
+        DB::table('product_images')->insert($data);
+        $detail = array();
+        $detail['title'] = $request->product_name;
+        $detail['slug'] = $request->slug;
+        $detail['description'] = $request->description;
+        $detail['price'] = $request->price;
+        $detail['quantity'] = $request->quantity;
+        $detail['category_id'] = $request->categories;
+        $detail['all_details'] = $request->ful_detail;
+        $detail['tags'] = $request->group_tag;
+        $detail['created_at'] = now();
+        DB::table('products')->insert($detail);
 
-        return response()->json($product, 201);
+        $size = array();
+        $size['name'] = $request->size;
+        DB::table('products_size')->insert($size);
+        return redirect()->back()->with('success', 'Saved successfully');
+
+        // return response()->json($product, 201);
     }
 
 
@@ -76,9 +106,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        
+        $products = Product::all();
+        return view('admin.list_products',compact('products'));
 
-        return response()->json($product);
+
+
     }
 
 
@@ -157,8 +190,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
+        return redirect()->back()->with('success', 'Saved successfully');
 
-        return response()->json(null, 204);
+
+        // return response()->json(null, 204);
     }
 
 
