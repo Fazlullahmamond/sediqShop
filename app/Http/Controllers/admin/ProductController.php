@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\size;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = SubCategory::all();
         $sizes = size::All();
         return view('admin.add_product',compact('categories','sizes'));
        
@@ -46,7 +46,7 @@ class ProductController extends Controller
             'slug' => 'required|unique:products',
             'price' => 'required|numeric',
             'discount' => 'nullable|integer|min:0|max:99',
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required|integer|min:0',
             'all_details' => 'required',
             'sub_category_id' => 'required|exists:sub_categories,id',
             'tags' => 'nullable|string',
@@ -58,10 +58,6 @@ class ProductController extends Controller
 
         $product = Product::create($validatedData);
 
-        // create the product sizes
-        // $sizes = $request->input('sizes', []);
-        // $product->sizes()->createMany($sizes);
-
         // // Upload and save the product images
         // if ($request->hasFile('images')) {
         //     foreach ($request->file('images') as $image) {
@@ -72,32 +68,19 @@ class ProductController extends Controller
         //         $product->images()->save($productImage);
         //     }
         // }
-        $data = array();
-        if(request()->image){
-            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $data['image'] = $imageName;
-            $img_loc = 'storage/images/products/';
-            request()->image->move($img_loc , $imageName);
-        } 
-        DB::table('product_images')->insert($data);
-        $detail = array();
-        $detail['title'] = $request->product_name;
-        $detail['slug'] = $request->slug;
-        $detail['description'] = $request->description;
-        $detail['price'] = $request->price;
-        $detail['quantity'] = $request->quantity;
-        $detail['category_id'] = $request->categories;
-        $detail['all_details'] = $request->ful_detail;
-        $detail['tags'] = $request->group_tag;
-        $detail['created_at'] = now();
-        DB::table('products')->insert($detail);
+        // $data = array();
+        // if(request()->image){
+        //     $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+        //     $data['image'] = $imageName;
+        //     $img_loc = 'storage/images/products/';
+        //     request()->image->move($img_loc , $imageName);
+        // } 
+        // DB::table('product_images')->insert($data);
 
-        $size = array();
-        $size['name'] = $request->size;
-        DB::table('products_size')->insert($size);
+        // $size = array();
+        // $size['name'] = $request->size;
+        // DB::table('products_size')->insert($size);
         return redirect()->back()->with('success', 'Saved successfully');
-
-        // return response()->json($product, 201);
     }
 
 

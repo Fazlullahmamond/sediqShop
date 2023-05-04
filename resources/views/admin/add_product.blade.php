@@ -159,14 +159,15 @@
 										</div>
 										<div class="col-lg-8">
 											<div class="ec-vendor-upload-detail">
-												<form class="row g-3">
+												<form class="row g-3" action="{{ route("products.store") }}" method="POST" enctype="multipart/form-data">
+													@csrf
 													<div class="col-md-6">
 														<label for="Productname" class="form-label">Product name</label>
-														<input type="text" class="form-control slug-title" id="Productname" name='product_name' >
+														<input type="text" class="form-control slug-title" id="Productname" name='title' >
 													</div>
 													<div class="col-md-6">
 														<label class="form-label">Select Categories</label>
-														<select name="categories" id="Categories" class="form-select">
+														<select name="sub_category_id" id="Categories" class="form-select">
 															@foreach ($categories as $categories)
 															<option value="{{$categories->id}}">{{$categories->name}}</option>		
 															@endforeach
@@ -179,73 +180,62 @@
 														</div>
 													</div>
 													<div class="col-md-12">
-														<label class="form-label">Sort Description</label>
+														<label class="form-label">Short Description</label>
 														<textarea class="form-control" rows="2" name='description'></textarea>
 													</div>
-													<div class="col-md-4 mb-25">
-														<label class="form-label">Colors</label>
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput1" value="#ff6191"
-															title="Choose your color">
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput2" value="#33317d"
-															title="Choose your color">
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput3" value="#56d4b7"
-															title="Choose your color">
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput4" value="#009688"
-															title="Choose your color">
-													</div>
-													<div class="col-md-8 mb-25">
+
+
+													<div class="col-md-12 mb-25">
 														<label class="form-label">Size</label>
 														<div class="form-checkbox-box">
-															@foreach ($sizes as $sizes)
+															@foreach ($sizes as $size)
 															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size" value="{{$sizes->id}}">
-																<label>{{$sizes->name}}</label>
+																<input type="checkbox" name="sizes[]" value="{{$size->id}}">
+																<label>{{$size->name}}</label>
 															</div>
 																
 															@endforeach
-															
-															{{-- <div class="form-check form-check-inline">
-																<input type="checkbox" name="size2" value="size">
-																<label>M</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size3" value="size">
-																<label>L</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size4" value="size">
-																<label>XL</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size5" value="size">
-																<label>XXL</label>
-															</div> --}}
 														</div>
 													</div>
-													<div class="col-md-6">
+													<div class="col-md-4">
 														<label class="form-label">Price <span>( In USD
 																)</span></label>
 														<input type="number" class="form-control" id="price1" name='price'>
 													</div>
-													<div class="col-md-6">
+													<div class="col-md-4">
 														<label class="form-label">Quantity</label>
 														<input type="number" class="form-control" id="quantity1" name='quantity'>
 													</div>
+													<div class="col-md-4">
+														<label class="form-label">Discount</label>
+														<input type="number" class="form-control" id="discount" name='discount'>
+													</div>
 													<div class="col-md-12">
 														<label class="form-label">Ful Detail</label>
-														<textarea class="form-control" rows="4" name='ful_detail'></textarea>
+														<textarea class="form-control" rows="4" name='all_details'></textarea>
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Product Tags <span>( Type and
 																make comma to separate tags )</span></label>
 														<input type="text" class="form-control" id="group_tag"
-															name="group_tag" value="" placeholder=""
+															name="tags" value="" placeholder=""
 															data-role="tagsinput" />
 													</div>
+
+													<div class="col-md-8 mb-25">
+														<div class="form-check form-check-inline">
+															<input type="checkbox" name="hot_offer" value="1">
+															<label>Hot Offer</label>
+														</div>
+													</div>
+
+													<div class="col-md-8 mb-25">
+														<div class="form-check form-check-inline">
+															<input type="checkbox" name="feature" value="1">
+															<label>Feature</label>
+														</div>
+													</div>
+
 													<div class="col-md-12">
 														<button type="submit" class="btn btn-primary">Submit</button>
 													</div>
