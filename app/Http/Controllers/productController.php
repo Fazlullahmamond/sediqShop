@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class productController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +12,6 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::where('role', 0)->get();
-        return view('admin.all_users', compact('users'));
     }
 
     /**
@@ -24,7 +20,6 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('admin.add_users');
     }
 
     /**
@@ -40,7 +35,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        
+        //
     }
 
     /**

@@ -74,7 +74,12 @@ Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.co
 
 Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
 
-// Route::get('/category/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
+Route::get('/category/details/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
+
+
+Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
+Route::get('/customer', [FrontController::class, 'customer'])->name('front.customer');
+Route::get('/deliveryInformation', [FrontController::class, 'deliveryInformation'])->name('front.deliveryInformation');
 
 
 Route::post('/newsletter/subscribe', [FrontController::class, 'subscribe'])->name('newsletter.subscribe');
@@ -110,7 +115,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
 // user pages route here
 Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
-    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('/dashboard', [AdminUsersController::class, 'dashboard'])->name('user.dashboard');
 //     Route::resource('user.addresses', 'UserAddressController');
 //     Route::resource('products.reviews', 'ProductReviewController');
 //     Route::resource('cart.items', 'CartItemsController');

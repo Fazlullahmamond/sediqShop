@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
-class UserController extends Controller
+
+class product_listController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        $users = User::where('role', 0)->get();
-        return view('admin.all_users', compact('users'));
+        // 
     }
 
     /**
@@ -23,8 +21,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.add_users');
+        // 
     }
 
     /**
@@ -32,7 +29,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -40,7 +37,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        
+        // $products = Product::all();
+        // return view('admin.list_products',compact('products'));
     }
 
     /**

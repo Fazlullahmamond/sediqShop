@@ -7,6 +7,10 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
 use Illuminate\Http\Request;
+use App\Models\SubCategory;
+use App\Models\size;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
@@ -25,8 +29,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.add_product');
+        $categories = SubCategory::all();
+        $sizes = size::All();
+        return view('admin.add_product',compact('categories','sizes'));
+       
     }
 
     /**
@@ -40,7 +46,7 @@ class ProductController extends Controller
             'slug' => 'required|unique:products',
             'price' => 'required|numeric',
             'discount' => 'nullable|integer|min:0|max:99',
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required|integer|min:0',
             'all_details' => 'required',
             'sub_category_id' => 'required|exists:sub_categories,id',
             'tags' => 'nullable|string',
@@ -52,22 +58,29 @@ class ProductController extends Controller
 
         $product = Product::create($validatedData);
 
-        // create the product sizes
-        $sizes = $request->input('sizes', []);
-        $product->sizes()->createMany($sizes);
+        // // Upload and save the product images
+        // if ($request->hasFile('images')) {
+        //     foreach ($request->file('images') as $image) {
+        //         $imagePath = $image->store('products');
+        //         $productImage = new ProductImage([
+        //             'image_path' => $imagePath,
+        //         ]);
+        //         $product->images()->save($productImage);
+        //     }
+        // }
+        // $data = array();
+        // if(request()->image){
+        //     $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+        //     $data['image'] = $imageName;
+        //     $img_loc = 'storage/images/products/';
+        //     request()->image->move($img_loc , $imageName);
+        // } 
+        // DB::table('product_images')->insert($data);
 
-        // Upload and save the product images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('products');
-                $productImage = new ProductImage([
-                    'image_path' => $imagePath,
-                ]);
-                $product->images()->save($productImage);
-            }
-        }
-
-        return response()->json($product, 201);
+        // $size = array();
+        // $size['name'] = $request->size;
+        // DB::table('products_size')->insert($size);
+        return redirect()->back()->with('success', 'Saved successfully');
     }
 
 
@@ -76,9 +89,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        
+        $products = Product::all();
+        return view('admin.list_products',compact('products'));
 
-        return response()->json($product);
+
+
     }
 
 
@@ -157,8 +173,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
+        return redirect()->back()->with('success', 'Saved successfully');
 
-        return response()->json(null, 204);
+
+        // return response()->json(null, 204);
     }
 
 

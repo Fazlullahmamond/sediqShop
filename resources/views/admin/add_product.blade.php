@@ -37,7 +37,7 @@
 													<div class="avatar-upload">
 														<div class="avatar-edit">
 															<input type='file' id="imageUpload" class="ec-image-upload"
-																accept=".png, .jpg, .jpeg" />
+																accept=".png, .jpg, .jpeg" name='image'/>
 															<label for="imageUpload"><img
 																	src="{{ asset('back/assets/img/icons/edit.svg') }}"
 																	class="svg_img header_svg" alt="edit" /></label>
@@ -159,98 +159,83 @@
 										</div>
 										<div class="col-lg-8">
 											<div class="ec-vendor-upload-detail">
-												<form class="row g-3">
+												<form class="row g-3" action="{{ route("products.store") }}" method="POST" enctype="multipart/form-data">
+													@csrf
 													<div class="col-md-6">
-														<label for="inputEmail4" class="form-label">Product name</label>
-														<input type="text" class="form-control slug-title" id="inputEmail4">
+														<label for="Productname" class="form-label">Product name</label>
+														<input type="text" class="form-control slug-title" id="Productname" name='title' >
 													</div>
 													<div class="col-md-6">
 														<label class="form-label">Select Categories</label>
-														<select name="categories" id="Categories" class="form-select">
-															<optgroup label="Fashion">
-																<option value="t-shirt">T-shirt</option>
-																<option value="dress">Dress</option>
-															</optgroup>
-															<optgroup label="Furniture">
-																<option value="table">Table</option>
-																<option value="sofa">Sofa</option>
-															</optgroup>
-															<optgroup label="Electronic">
-																<option value="phone">I Phone</option>
-																<option value="laptop">Laptop</option>
-															</optgroup>
+														<select name="sub_category_id" id="Categories" class="form-select">
+															@foreach ($categories as $categories)
+															<option value="{{$categories->id}}">{{$categories->name}}</option>		
+															@endforeach
 														</select>
 													</div>
 													<div class="col-md-12">
 														<label for="slug" class="col-12 col-form-label">Slug</label> 
 														<div class="col-12">
-															<input id="slug" name="slug" class="form-control here set-slug" type="text">
+															<input id="slug" name="slug" class="form-control here set-slug" type="text" value="">
 														</div>
 													</div>
 													<div class="col-md-12">
-														<label class="form-label">Sort Description</label>
-														<textarea class="form-control" rows="2"></textarea>
+														<label class="form-label">Short Description</label>
+														<textarea class="form-control" rows="2" name='description'></textarea>
 													</div>
-													<div class="col-md-4 mb-25">
-														<label class="form-label">Colors</label>
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput1" value="#ff6191"
-															title="Choose your color">
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput2" value="#33317d"
-															title="Choose your color">
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput3" value="#56d4b7"
-															title="Choose your color">
-														<input type="color" class="form-control form-control-color"
-															id="exampleColorInput4" value="#009688"
-															title="Choose your color">
-													</div>
-													<div class="col-md-8 mb-25">
+
+
+													<div class="col-md-12 mb-25">
 														<label class="form-label">Size</label>
 														<div class="form-checkbox-box">
+															@foreach ($sizes as $size)
 															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
-																<label>S</label>
+																<input type="checkbox" name="sizes[]" value="{{$size->id}}">
+																<label>{{$size->name}}</label>
 															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
-																<label>M</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
-																<label>L</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
-																<label>XL</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="size1" value="size">
-																<label>XXL</label>
-															</div>
+																
+															@endforeach
 														</div>
 													</div>
-													<div class="col-md-6">
+													<div class="col-md-4">
 														<label class="form-label">Price <span>( In USD
 																)</span></label>
-														<input type="number" class="form-control" id="price1">
+														<input type="number" class="form-control" id="price1" name='price'>
 													</div>
-													<div class="col-md-6">
+													<div class="col-md-4">
 														<label class="form-label">Quantity</label>
-														<input type="number" class="form-control" id="quantity1">
+														<input type="number" class="form-control" id="quantity1" name='quantity'>
+													</div>
+													<div class="col-md-4">
+														<label class="form-label">Discount</label>
+														<input type="number" class="form-control" id="discount" name='discount'>
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Ful Detail</label>
-														<textarea class="form-control" rows="4"></textarea>
+														<textarea class="form-control" rows="4" name='all_details'></textarea>
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Product Tags <span>( Type and
 																make comma to separate tags )</span></label>
 														<input type="text" class="form-control" id="group_tag"
-															name="group_tag" value="" placeholder=""
+															name="tags" value="" placeholder=""
 															data-role="tagsinput" />
 													</div>
+
+													<div class="col-md-8 mb-25">
+														<div class="form-check form-check-inline">
+															<input type="checkbox" name="hot_offer" value="1">
+															<label>Hot Offer</label>
+														</div>
+													</div>
+
+													<div class="col-md-8 mb-25">
+														<div class="form-check form-check-inline">
+															<input type="checkbox" name="feature" value="1">
+															<label>Feature</label>
+														</div>
+													</div>
+
 													<div class="col-md-12">
 														<button type="submit" class="btn btn-primary">Submit</button>
 													</div>
