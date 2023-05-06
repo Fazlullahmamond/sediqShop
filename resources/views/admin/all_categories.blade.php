@@ -29,8 +29,10 @@
                                     <div class="form-group row">
                                         <label for="text" class="col-12 col-form-label">Name</label>
                                         <div class="col-12">
-                                            <input id="text" name="name" class="form-control here slug-title"
-                                                type="text">
+                                            <input id="text" name="name" class="form-control here slug-title" type="text">
+                                            @if ($errors->has('name'))
+                                                <div style="color: red;">{{ $errors->first('name') }}</div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -38,6 +40,9 @@
                                         <label class="col-12 col-form-label">Short Description</label>
                                         <div class="col-12">
                                             <textarea id="sortdescription" name="description" cols="40" rows="2" class="form-control"></textarea>
+                                            @if ($errors->has('description'))
+                                                <div style="color: red;">{{ $errors->first('description') }}</div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -45,6 +50,9 @@
                                         <label class="col-12 col-form-label">Image</label>
                                         <div class="col-12">
                                             <input type="file" id="Categoryimage" name="image" class="form-control">
+                                            @if ($errors->has('image'))
+                                                <div style="color: red;">{{ $errors->first('image') }}</div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -78,7 +86,8 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                             <tr>
-                                                <td><img src="{{ asset('storage/images/categories/'.$category->image) }}" width="150" height="100" alt=""></td>
+                                                <td><img src="{{ asset('storage/images/categories/' . $category->image) }}"
+                                                        width="150" height="100" alt=""></td>
                                                 <td>{{ $category->name }}</td>
                                                 <td>
                                                     <span class="ec-sub-cat-list">
@@ -94,13 +103,15 @@
                                                     <div class="btn-group">
                                                         <a type="button" href="categories/{{ $category->id }}"
                                                             class="btn btn-outline-success">Edit</a>
-                                                        
-                                                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="btn btn-outline-danger">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" onclick="return confirm('Are you sure you want to delete')">Delete</button>
-                                                            </form>
-                                                        
+
+                                                        <form action="{{ route('categories.destroy', $category->id) }}"
+                                                            method="POST" class="btn btn-outline-danger">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                onclick="return confirm('Are you sure you want to delete')">Delete</button>
+                                                        </form>
+
                                                     </div>
                                                 </td>
                                             </tr>

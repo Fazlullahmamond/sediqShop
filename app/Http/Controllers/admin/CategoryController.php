@@ -30,13 +30,19 @@ class CategoryController extends Controller
     // receives the input from the create view and stores a new category in the database.
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:255',
+            'image' => 'required|mimes:jpeg,png,jpg,gif',
+        ]);
+
         $data = array();
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
             $data['image'] = $imageName;
             $img_loc = 'storage/images/categories/';
             request()->image->move($img_loc , $imageName);
-        } 
+        }
         $data['name'] = $request->name;
         $data['description'] = $request->description;
         DB::table('categories')->insert($data);
@@ -60,14 +66,14 @@ class CategoryController extends Controller
         $category = Category::find($id);
         return view('admin.categories.edit', compact('category'));
     }
-  
 
 
 
 
 
 
-  
+
+
 
     //receives the input from the edit view and updates an existing category in the database.
     public function update(Request $request, $id)
@@ -86,7 +92,7 @@ class CategoryController extends Controller
             $data['image'] = $imageName;
             $img_loc = 'storage/images/categories/';
             request()->image->move($img_loc , $imageName);
-        } 
+        }
         $data['name'] = $request->name;
         $data['description'] = $request->description;
         DB::table('categories')->where('id',$id)->update($data);
