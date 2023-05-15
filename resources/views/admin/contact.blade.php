@@ -14,9 +14,9 @@
 				<div class="content">
 					<div
 						class="breadcrumb-wrapper breadcrumb-wrapper-2 d-flex align-items-center justify-content-between">
-						<h1>Review</h1>
-						<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-							<span><i class="mdi mdi-chevron-right"></i></span>Review
+						<h1>User  Contacts</h1>
+						<p class="breadcrumbs"><span><a href="{{ route('admin.dashboard') }}">Dashboard</a></span>
+							<span><i class="mdi mdi-chevron-right"></i></span>Contacts
 						</p>
 					</div>
 					<div class="row">
@@ -27,116 +27,32 @@
 										<table id="responsive-data-table" class="table" style="width:100%">
 											<thead>
 												<tr>
-													<th>Product</th>
-													<th>Name</th>
-													<th>Profile</th>
-													<th>Vendor</th>
-													<th>Ratings</th>
-													<th>Date</th>
-													<th>Action</th>
+													<th>Full Name</th>
+													<th>Email</th>
+													<th>Phone</th>
+													<th>Comment</th>
+													<th>Status</th>
 												</tr>
 											</thead>
 
 											<tbody>
-												<tr>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/products/p1.jpg') }}" alt="product image"/></td>
-													<td>Baby shoes</td>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/user/u1.jpg') }}" alt="product image"/></td>
-													<td>Johnas Pintu</td>
-													<td>
-														<div class="ec-t-rate">
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star"></i>
-														</div>
-													</td>
-													<td>2021-12-03</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/products/p2.jpg') }}" alt="product image"/></td>
-													<td>Full Sleeve With Cap</td>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/user/u2.jpg') }}" alt="product image"/></td>
-													<td>Mehuli Bronita</td>
-													<td>
-														<div class="ec-t-rate">
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-														</div>
-													</td>
-													<td>2021-11-28</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
+                                                @foreach ($contact as $con)
+                                                    <tr>
+                                                        <td>{{ $con->first_name }} {{ $con->last_name }}</td>
+                                                        <td>{{ $con->email }}</td>
+                                                        <td>{{ $con->phone_number }}</td>
+                                                        <td>{{ $con->comment }}</td>
+                                                        @if ($con->status == 0)
+                                                            <td style="color: red;">Pendding</td>
+                                                        @elseif ($con->status == 1)
+                                                            <td style="color: green;">Active</td>
+                                                        @else
+                                                            <td style="color: yellow;">Not Active</td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/products/p3.jpg') }}" alt="product image" /></td>
-													<td>T-Shirt for Men</td>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/user/u3.jpg') }}" alt="product image" /></td>
-													<td>Hardi Katlin</td>
-													<td>
-														<div class="ec-t-rate">
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star"></i>
-														</div>
-													</td>
-													<td>2021-11-22</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
 											</tbody>
 										</table>
 									</div>

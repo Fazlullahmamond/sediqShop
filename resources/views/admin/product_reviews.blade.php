@@ -15,7 +15,7 @@
 					<div
 						class="breadcrumb-wrapper breadcrumb-wrapper-2 d-flex align-items-center justify-content-between">
 						<h1>Review</h1>
-						<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+						<p class="breadcrumbs"><span><a href="{{ route('admin.dashboard') }}">Dashboard</a></span>
 							<span><i class="mdi mdi-chevron-right"></i></span>Review
 						</p>
 					</div>
@@ -27,10 +27,10 @@
 										<table id="responsive-data-table" class="table" style="width:100%">
 											<thead>
 												<tr>
+													<th>User</th>
 													<th>Product</th>
-													<th>Name</th>
-													<th>Profile</th>
-													<th>Vendor</th>
+													<th>Title</th>
+													<th>Description</th>
 													<th>Ratings</th>
 													<th>Date</th>
 													<th>Action</th>
@@ -38,105 +38,33 @@
 											</thead>
 
 											<tbody>
-												<tr>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/products/p1.jpg') }}" alt="product image"/></td>
-													<td>Baby shoes</td>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/user/u1.jpg') }}" alt="product image"/></td>
-													<td>Johnas Pintu</td>
-													<td>
-														<div class="ec-t-rate">
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star"></i>
-														</div>
-													</td>
-													<td>2021-12-03</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/products/p2.jpg') }}" alt="product image"/></td>
-													<td>Full Sleeve With Cap</td>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/user/u2.jpg') }}" alt="product image"/></td>
-													<td>Mehuli Bronita</td>
-													<td>
-														<div class="ec-t-rate">
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-														</div>
-													</td>
-													<td>2021-11-28</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
+                                                @foreach ($product_reviews as $reviews)
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/products/p3.jpg') }}" alt="product image" /></td>
-													<td>T-Shirt for Men</td>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/user/u3.jpg') }}" alt="product image" /></td>
-													<td>Hardi Katlin</td>
-													<td>
-														<div class="ec-t-rate">
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star is-rated"></i>
-															<i class="mdi mdi-star"></i>
-														</div>
-													</td>
-													<td>2021-11-22</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
+                                                    <tr>
+                                                        <td>{{ $reviews->user->name }}</td>
+                                                        <td>{{ $reviews->product->title }}</td>
+                                                        <td>{{ $reviews->title }}</td>
+                                                        <td>{{ $reviews->description }}</td>
+                                                        <td>
+                                                            <div class="ec-t-rate">
+                                                                @for ($i = 0; $i < $reviews->rating; $i++)
+                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                @endfor
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $reviews->created_at }}</td>
+                                                        @if ($reviews->status == 0)
+                                                            <td style="color: red;">Pendding</td>
+                                                        @elseif ($reviews->status == 1)
+                                                            <td style="color: green;">Active</td>
+                                                        @else
+                                                            <td style="color: yellow;">Not Active</td>
+                                                        @endif
+                                                    </tr>
 
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
+                                                @endforeach
+
 											</tbody>
 										</table>
 									</div>
