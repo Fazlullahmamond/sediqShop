@@ -103,8 +103,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $products = Product::find($id);
+        return view('admin.categories.edit', compact('category'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -114,6 +116,7 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
+            'image' => 'image',
             'slug' => 'required|unique:products,slug,'.$id,
             'price' => 'required|numeric',
             'discount' => 'nullable|integer|min:0|max:99',

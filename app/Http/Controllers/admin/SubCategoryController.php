@@ -30,6 +30,14 @@ class SubCategoryController extends Controller
     //This method receives the input from the create view and stores a new subcategory in the database.
     public function store(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:255',
+            'selecter' => 'required|min:3|max:255',
+            'image' => 'required|mimes:jpeg,png,jpg,gif',
+        ]);
+
         $data = array();
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();

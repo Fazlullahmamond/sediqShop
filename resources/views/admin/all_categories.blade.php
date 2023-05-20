@@ -123,7 +123,7 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- End Content -->
+        </div> <!-- End Content -->~
     </div> <!-- End Content Wrapper -->
 @endsection
 

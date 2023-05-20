@@ -57,9 +57,7 @@
                                                 <td>
 
                                                     <div class="btn-group">
-                                                        <a type="button" href="products/{{ $products->id }}"
-                                                            class="btn btn-outline-success">Edit</a>
-
+                                                        <a type="button" href="products/{{ $products->id }}" class="btn btn-outline-success">Edit</a>
                                                         <form action="{{'products.destroy', $products->id }}" method="POST" class="btn btn-outline-danger">
                                                             @csrf
                                                             @method('DELETE')
