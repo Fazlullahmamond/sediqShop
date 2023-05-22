@@ -55,17 +55,14 @@
                                                 <td>{{ $products->Status }}</td>
                                                 <td>{{ $products->created_at }}</td>
                                                 <td>
-
                                                     <div class="btn-group">
-                                                        <a type="button" href="products/{{ $products->id }}" class="btn btn-outline-success">Edit</a>
-                                                        <form action="{{'products.destroy', $products->id }}" method="POST" class="btn btn-outline-danger">
+                                                        <a type="button" href="{{ route('products.edit', $products->id) }}" class="btn btn-outline-success">Edit</a>
+                                                        <form action="{{ route('products.destroy', $products->id) }}" method="POST" class="btn btn-outline-danger">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
                                                                 onclick="return confirm('Are you sure you want to delete')">Delete</button>
                                                         </form>
-
-
                                                     </div>
                                                 </td>
                                             </tr>

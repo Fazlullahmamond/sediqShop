@@ -31,137 +31,29 @@
 
 								<div class="card-body">
 									<div class="row ec-vendor-uploads">
-										<div class="col-lg-4">
-											<div class="ec-vendor-img-upload">
-												<div class="ec-vendor-main-img">
-													<div class="avatar-upload">
-														<div class="avatar-edit">
-															<input type='file' id="imageUpload" class="ec-image-upload"
-																accept=".png, .jpg, .jpeg" name='image'/>
-															<label for="imageUpload"><img
-																	src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																	class="svg_img header_svg" alt="edit" /></label>
-														</div>
-														
-													</div>
-													{{-- <div class="thumb-upload-set colo-md-12">
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload01"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload02"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload03"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload04"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload05"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload06"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-													</div> --}}
-												</div>
-											</div>
-										</div>
 										<div class="col-lg-12">
 											<div class="ec-vendor-upload-detail">
 												<form class="row g-3" action="{{ route("products.store") }}" method="POST" enctype="multipart/form-data">
 													@csrf
-													<div class="col-md-4">
-														<div class="thumb-preview ec-preview">
-															<div class="image-thumb-preview">
-																<img class="image-thumb-preview ec-image-preview" src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}" width="250" height="200" name="image" alt="edit" />
-																@if ($errors->has('image'))
-                                                				<div style="color: red;">{{ $errors->first('image') }}</div>
-                                            					@endif
+													<div class="col-lg-4">
+														<div class="ec-vendor-img-upload">
+															<div class="ec-vendor-main-img">
+																<div class="avatar-upload">
+																	<div class="avatar-edit">
+																		<input type='file' id="imageUpload" name='image' class="ec-image-upload"
+																			accept=".png, .jpg, .jpeg" />
+																		<label for="imageUpload"><img
+																				src="{{ asset('back/assets/img/icons/edit.svg') }}"
+																				class="svg_img header_svg" alt="edit" /></label>
+																	</div>
+																	<div class="avatar-preview ec-preview">
+																		<div class="imagePreview ec-div-preview">
+																			<img class="ec-image-preview"
+																				src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
+																				width="250" height="200"  alt="edit"  name='image'/>
+																		</div>
+																	</div>
+																</div>
 															</div>
 														</div>
 													</div>
@@ -273,6 +165,7 @@
 						</div>
 					</div>
 				</div> <!-- End Content -->
-			</div> <!-- End Content Wrapper -->
+			</div> 
+			<!-- End Content Wrapper -->
 
 @endsection

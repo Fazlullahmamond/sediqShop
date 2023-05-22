@@ -40,6 +40,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $data = array();
+        if(request()->image){
+            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+            $data['image_path'] = $imageName;
+            $img_loc = 'storage/images/products/';
+            request()->image->move($img_loc , $imageName);
+            DB::table('product_images')->insert($data);
+        }
+        
+        
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
@@ -57,29 +67,6 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create($validatedData);
-
-        // // Upload and save the product images
-        // if ($request->hasFile('images')) {
-        //     foreach ($request->file('images') as $image) {
-        //         $imagePath = $image->store('products');
-        //         $productImage = new ProductImage([
-        //             'image_path' => $imagePath,
-        //         ]);
-        //         $product->images()->save($productImage);
-        //     }
-        // }
-        // $data = array();
-        // if(request()->image){
-        //     $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-        //     $data['image'] = $imageName;
-        //     $img_loc = 'storage/images/products/';
-        //     request()->image->move($img_loc , $imageName);
-        // } 
-        // DB::table('product_images')->insert($data);
-
-        // $size = array();
-        // $size['name'] = $request->size;
-        // DB::table('products_size')->insert($size);
         return redirect()->back()->with('success', 'Saved successfully');
     }
 
@@ -104,7 +91,9 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $products = Product::find($id);
-        return view('admin.categories.edit', compact('category'));
+        $categories = SubCategory::all();
+        $sizes  = size::All();
+        return view('admin.products.edit', compact('products','categories','sizes'));
     }
     
 
@@ -174,9 +163,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
-        return redirect()->back()->with('success', 'Saved successfully');
+        $product = Product::find($id)->delete();
+        return redirect()->route('product.index')->with('success', 'Saved successfully');
 
 
         // return response()->json(null, 204);

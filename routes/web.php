@@ -6,7 +6,6 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\UserController as AdminUsersController;
 use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\productlistController;
 use App\Http\Controllers\front\FrontController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -103,7 +102,6 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubCategoryController::class);
     Route::resource('products', ProductController::class);
-    Route::resource('productslist', productlistController::class);
     Route::resource('adminUsers', AdminUsersController::class);
     Route::resource('blog', BlogController::class);
     Route::get('/reviews', [ProductController::class, 'product_reviews'])->name('product.reviews');
