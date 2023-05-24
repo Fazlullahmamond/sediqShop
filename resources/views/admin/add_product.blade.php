@@ -44,7 +44,7 @@
 																			accept=".png, .jpg, .jpeg" />
 																		<label for="imageUpload"><img
 																				src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																				class="svg_img header_svg" alt="edit" /></label>
+																				class="svg_img header_svg" alt="edit" name='image' /></label>
 																	</div>
 																	<div class="avatar-preview ec-preview">
 																		<div class="imagePreview ec-div-preview">
