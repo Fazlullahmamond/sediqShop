@@ -31,157 +31,65 @@
 
 								<div class="card-body">
 									<div class="row ec-vendor-uploads">
-										<div class="col-lg-4">
-											<div class="ec-vendor-img-upload">
-												<div class="ec-vendor-main-img">
-													<div class="avatar-upload">
-														<div class="avatar-edit">
-															<input type='file' id="imageUpload" class="ec-image-upload"
-																accept=".png, .jpg, .jpeg" name='image'/>
-															<label for="imageUpload"><img
-																	src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																	class="svg_img header_svg" alt="edit" /></label>
-														</div>
-														<div class="avatar-preview ec-preview">
-															<div class="imagePreview ec-div-preview">
-																<img class="ec-image-preview"
-																	src="{{ asset('back/assets/img/products/vender-upload-preview.jpg') }}"
-																	alt="edit" />
-															</div>
-														</div>
-													</div>
-													<div class="thumb-upload-set colo-md-12">
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload01"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload02"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload03"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload04"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload05"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-														<div class="thumb-upload">
-															<div class="thumb-edit">
-																<input type='file' id="thumbUpload06"
-																	class="ec-image-upload"
-																	accept=".png, .jpg, .jpeg" />
-																<label for="imageUpload"><img
-																		src="{{ asset('back/assets/img/icons/edit.svg') }}"
-																		class="svg_img header_svg" alt="edit" /></label>
-															</div>
-															<div class="thumb-preview ec-preview">
-																<div class="image-thumb-preview">
-																	<img class="image-thumb-preview ec-image-preview"
-																		src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
-																		alt="edit" />
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-8">
+										<div class="col-lg-12">
 											<div class="ec-vendor-upload-detail">
 												<form class="row g-3" action="{{ route("products.store") }}" method="POST" enctype="multipart/form-data">
 													@csrf
-													<div class="col-md-6">
+													<div class="col-lg-4">
+														<div class="ec-vendor-img-upload">
+															<div class="ec-vendor-main-img">
+																<div class="avatar-upload">
+																	<div class="avatar-edit">
+																		<input type='file' id="imageUpload" name='image' class="ec-image-upload"
+																			accept=".png, .jpg, .jpeg" />
+																		<label for="imageUpload"><img
+																				src="{{ asset('back/assets/img/icons/edit.svg') }}"
+																				class="svg_img header_svg" alt="edit" name='image' /></label>
+																	</div>
+																	<div class="avatar-preview ec-preview">
+																		<div class="imagePreview ec-div-preview">
+																			<img class="ec-image-preview"
+																				src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
+																				width="250" height="200"  alt="edit"  name='image'/>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-4">
 														<label for="Productname" class="form-label">Product name</label>
 														<input type="text" class="form-control slug-title" id="Productname" name='title' >
+														@if ($errors->has('title'))
+                                                		<div style="color: red;">{{ $errors->first('title') }}</div>
+                                            			@endif
 													</div>
-													<div class="col-md-6">
+													<div class="col-md-4">
 														<label class="form-label">Select Categories</label>
 														<select name="sub_category_id" id="Categories" class="form-select">
 															@foreach ($categories as $categories)
 															<option value="{{$categories->id}}">{{$categories->name}}</option>		
 															@endforeach
+															@if ($errors->has('sub_category_id'))
+                                                			<div style="color: red;">{{ $errors->first('sub_category_id') }}</div>
+                                            				@endif
 														</select>
 													</div>
 													<div class="col-md-12">
 														<label for="slug" class="col-12 col-form-label">Slug</label> 
 														<div class="col-12">
 															<input id="slug" name="slug" class="form-control here set-slug" type="text" value="">
+															@if ($errors->has('slug'))
+                                                			<div style="color: red;">{{ $errors->first('slug') }}</div>
+                                            				@endif
 														</div>
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Short Description</label>
 														<textarea class="form-control" rows="2" name='description'></textarea>
+														@if ($errors->has('description'))
+                                                		<div style="color: red;">{{ $errors->first('description') }}</div>
+                                            			@endif
 													</div>
 
 
@@ -201,10 +109,16 @@
 														<label class="form-label">Price <span>( In USD
 																)</span></label>
 														<input type="number" class="form-control" id="price1" name='price'>
+														@if ($errors->has('price'))
+                                                		<div style="color: red;">{{ $errors->first('price') }}</div>
+                                            			@endif
 													</div>
 													<div class="col-md-4">
 														<label class="form-label">Quantity</label>
 														<input type="number" class="form-control" id="quantity1" name='quantity'>
+														@if ($errors->has('quantity'))
+                                                		<div style="color: red;">{{ $errors->first('quantity') }}</div>
+                                            			@endif
 													</div>
 													<div class="col-md-4">
 														<label class="form-label">Discount</label>
@@ -213,6 +127,9 @@
 													<div class="col-md-12">
 														<label class="form-label">Ful Detail</label>
 														<textarea class="form-control" rows="4" name='all_details'></textarea>
+														@if ($errors->has('all_details'))
+                                                		<div style="color: red;">{{ $errors->first('all_details') }}</div>
+                                            			@endif
 													</div>
 													<div class="col-md-12">
 														<label class="form-label">Product Tags <span>( Type and
@@ -248,6 +165,7 @@
 						</div>
 					</div>
 				</div> <!-- End Content -->
-			</div> <!-- End Content Wrapper -->
+			</div> 
+			<!-- End Content Wrapper -->
 
 @endsection

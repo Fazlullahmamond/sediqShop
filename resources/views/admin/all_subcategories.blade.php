@@ -28,8 +28,10 @@
 											<div class="form-group row">
 												<label for="text" class="col-12 col-form-label">Name</label>
 												<div class="col-12">
-													<input id="text" name="name" class="form-control here slug-title"
-														type="text">
+													<input id="text" name="name" class="form-control here slug-title" type="text">
+													@if ($errors->has('name'))
+													<div style="color: red;">{{ $errors->first('name') }}</div>
+													@endif
 												</div>
 											</div>
 		
@@ -37,6 +39,9 @@
 												<label class="col-12 col-form-label">Short Description</label>
 												<div class="col-12">
 													<textarea id="sortdescription" name="description" cols="40" rows="2" class="form-control"></textarea>
+													@if ($errors->has('description'))
+													<div style="color: red;">{{ $errors->first('description') }}</div>
+													@endif
 												</div>
 											</div>
 											<div class="form-group row">
@@ -47,6 +52,9 @@
 														@foreach ($categories as $categories)
 														<option value="{{ $categories->id }}">{{ $categories->name }}</option>
 														@endforeach
+														@if ($errors->has('selecter'))
+														<div style="color: red;">{{ $errors->first('selecter') }}</div>
+														@endif
 													</select>
 												</div>
 											</div>
@@ -54,6 +62,9 @@
 												<label class="col-12 col-form-label">Image</label>
 												<div class="col-12">
 													<input type="file" id="Categoryimage" name="image" class="form-control">
+													@if ($errors->has('image'))
+													<div style="color: red;">{{ $errors->first('image') }}</div>
+													@endif		
 												</div>
 											</div>
 		

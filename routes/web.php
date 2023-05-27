@@ -6,7 +6,6 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\UserController as AdminUsersController;
 use App\Http\Controllers\admin\ProductController;
-
 use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\user\WishlistController;
 use Illuminate\Support\Facades\Auth;
