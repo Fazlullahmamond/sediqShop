@@ -1,3 +1,12 @@
+<?php
+    $title = $blog->title;
+    $type = "website";
+    $url = "https://www.sediq.net/blog/" . $blog->id;
+    $image = $blog->image_url;
+    $description = $blog->description;
+    $site_name = "W World";
+?>
+
 @extends('front.components.layout')
 
 @section('main')
@@ -11,7 +20,7 @@
                         <div class="ec-blogs-content">
                             <div class="ec-blogs-inner">
                                 <div class="ec-blog-main-img">
-                                    <img class="blog-image" src="{{ $blog->image_url }}" alt="Blog" />
+                                    <img class="blog-image" src="{{ $blog->image_url }}" alt="{{ $blog->tag }}" />
                                 </div>
                                 <div class="ec-blog-date">
                                     <p class="date">{{ $blog->created_at->diffForHumans() }} </p>
@@ -29,8 +38,8 @@
                     <div class="ec-blogs-leftside col-lg-4 col-md-12">
                         <div class="ec-blog-search">
                             <form class="ec-blog-search-form" action="#">
-                                <input class="form-control" placeholder="Search Our Blog" type="text">
-                                <button class="submit" type="submit"><i class="ecicon eci-search"></i></button>
+                                <input class="form-control" placeholder="Search Our Blog" type="text" id="blog-input">
+                                <div id="search-results" style="position: absolute; z-index: 99; background-color: white; width: 300px; padding: 20px; box-shadow: black 10px 10px 20px; display:none;"></div>
                             </form>
                         </div>
                         <div class="ec-sidebar-wrap">
@@ -59,4 +68,42 @@
                 </div>
             </div>
         </section>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        const selectElement = document.querySelector('#blog-input');
+        selectElement.addEventListener('input', (event) => {
+        var query = $('#blog-input').val();
+            $.ajax({
+            url: '/searchBlog',
+            data: {query: query},
+            success: function(response) {
+                var results = response;
+                var dropdown = $('#search-results');
+                dropdown.empty();
+                dropdown.show();
+                if (results.length > 0) {
+                $.each(results, function(index, result) {
+                    var link = '<a href="/blog/'+result.id+'">'+result.title+'</a>';
+                    dropdown.append('<div class="result">'+link+'</div>');
+                });
+                } else {
+                dropdown.append('<div class="no-results">No results found</div>');
+                }
+                dropdown.show();
+            },
+            error: function(response) {
+                alert(response);
+            }
+            });
+    });
+
+        $(document).click(function() {
+            $('#search-results').hide();
+        });
+    });
+</script>
+
 @endsection

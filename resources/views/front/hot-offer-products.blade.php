@@ -1,9 +1,9 @@
 <?php
-    $title = "Featured Products";
+    $title = "Hot Offer Products";
     $type = "website";
     $url = "https://www.sediq.net/feature-products";
     $image = "front/assets/images/product-image/product.jpg";
-    $description = "Discover our handpicked collection of featured products at W World! We curate a selection of high-quality items that are not only stylish but also reflect the latest trends in fashion. From trendy clothing pieces to fashionable accessories, our featured products showcase the best of what we have to offer. Whether you're looking for a statement piece to elevate your wardrobe or seeking everyday essentials with a touch of flair, our featured products are designed to inspire and delight. With a focus on quality, affordability, and exceptional style, our featured products are sure to enhance your shopping experience at W World. Explore our collection and find your next favorite piece today!";
+    $description = "Discover our handpicked collection of Hot Offer products at W World! We curate a selection of high-quality items that are not only stylish but also reflect the latest trends in fashion. From trendy clothing pieces to fashionable accessories, our Hot Offer products showcase the best of what we have to offer. Whether you're looking for a statement piece to elevate your wardrobe or seeking everyday essentials with a touch of flair, our Hot Offer products are designed to inspire and delight. With a focus on quality, affordability, and exceptional style, our Hot Offer products are sure to enhance your shopping experience at W World. Explore our collection and find your next favorite piece today!";
     $site_name = "W World";
 ?>
 
@@ -16,9 +16,9 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="section-title">
-                            <h2 class="ec-bg-title">Feature products</h2>
-                            <h2 class="ec-title">Feature products</h2>
-                            <p class="sub-title" style="text-align: justify">Discover our handpicked collection of featured products at W World! We curate a selection of high-quality items that are not only stylish but also reflect the latest trends in fashion. From trendy clothing pieces to fashionable accessories, our featured products showcase the best of what we have to offer. Whether you're looking for a statement piece to elevate your wardrobe or seeking everyday essentials with a touch of flair, our featured products are designed to inspire and delight. With a focus on quality, affordability, and exceptional style, our featured products are sure to enhance your shopping experience at W World. Explore our collection and find your next favorite piece today!</p>
+                            <h2 class="ec-bg-title">Hot Offer products</h2>
+                            <h2 class="ec-title">Hot Offer products</h2>
+                            <p class="sub-title" style="text-align: justify">Discover our handpicked collection of Hot Offer products at W World! We curate a selection of high-quality items that are not only stylish but also reflect the latest trends in fashion. From trendy clothing pieces to fashionable accessories, our Hot Offer products showcase the best of what we have to offer. Whether you're looking for a statement piece to elevate your wardrobe or seeking everyday essentials with a touch of flair, our Hot Offer products are designed to inspire and delight. With a focus on quality, affordability, and exceptional style, our Hot Offer products are sure to enhance your shopping experience at W World. Explore our collection and find your next favorite piece today!</p>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                         </div>
 
                     @endforeach
-                    
+
                     @if ($products->hasPages())
                         <div class="pagination">
                             {{ $products->links('vendor.pagination.bootstrap-4') }}

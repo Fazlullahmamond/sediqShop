@@ -1,3 +1,11 @@
+<?php
+    $title = "Browes diffirent categories of products";
+    $type = "website";
+    $url = "https://www.sediq.net/category/".$sub_id;
+    $image = "front/assets/images/product-image/product.jpg";
+    $description = "Discover the latest fashion trends, explore diverse categories, and indulge in the joy of shopping at W World. Join our community of fashion enthusiasts and let us be your go-to destination for all your style desires. Experience the world of fashion at your fingertips with W World.";
+    $site_name = "W World";
+?>
 @extends('front.components.layout')
 
 @section('main')
@@ -31,11 +39,7 @@
                                 @if ($product->discount != 0)
                                     <span class="percentage">{{ $product->discount }}%</span>
                                 @endif
-                                <a href="#" class="quickview" data-link-action="quickview" title="Quick view"
-                                    data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><i class="fi-rr-eye"></i></a>
                                 <div class="ec-pro-actions">
-                                    <a href="compare.html" class="ec-btn-group compare" title="Compare"><i
-                                            class="fi fi-rr-arrows-repeat"></i></a>
                                     <button title="Add To Cart" class="add-to-cart"><i
                                             class="fi-rr-shopping-basket"></i> Add To Cart</button>
                                     <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a>
@@ -97,7 +101,7 @@
     <!-- Related Product end -->
 @endsection
 
-@section('modals')
+{{-- @section('modals')
 
     <!-- Modal -->
     <div class="modal fade" id="ec_quickview_modal" tabindex="-1" role="dialog">
@@ -206,4 +210,4 @@
         </div>
     </div>
     <!-- Modal end -->
-@endsection
+@endsection --}}

@@ -1,3 +1,12 @@
+<?php
+    $title = "Contact Us: contact@sediq.net";
+    $type = "website";
+    $url = "https://www.sediq.net/contact-us";
+    $image = "front/assets/images/logo/contact.png";
+    $description = "Whether you have a question about our products, need assistance with an order, or simply want to share your thoughts, our Contact Us page is the gateway to connecting with our knowledgeable and friendly support team. Feel free to reach out to us, and we'll be more than happy to assist you. Your satisfaction is our priority at W World.";
+    $site_name = "W World";
+?>
+
 @extends('front.components.layout')
 
 @section('main')
@@ -30,42 +39,58 @@
         <section class="ec-page-content section-space-p">
             <div class="container">
                 <div class="row">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="ec-common-wrapper">
                         <div class="ec-contact-leftside">
                             <div class="ec-contact-container">
                                 <div class="ec-contact-form">
-                                    <form action="#" method="post">
+                                    <form action="{{ route('front.contactUsStore') }}" method="POST">
+                                        @csrf
                                         <span class="ec-contact-wrap">
                                             <label>First Name*</label>
-                                            <input type="text" name="firstname" placeholder="Enter your first name"
-                                                required />
+                                            @error('first_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            <input type="text" name="first_name" placeholder="Enter your first name"  />
                                         </span>
                                         <span class="ec-contact-wrap">
                                             <label>Last Name*</label>
-                                            <input type="text" name="lastname" placeholder="Enter your last name"
-                                                required />
+                                            @error('last_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            <input type="text" name="last_name" placeholder="Enter your last name"  />
                                         </span>
                                         <span class="ec-contact-wrap">
                                             <label>Email*</label>
-                                            <input type="email" name="email" placeholder="Enter your email address"
-                                                required />
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            <input type="email" name="email" placeholder="Enter your email address"  />
                                         </span>
                                         <span class="ec-contact-wrap">
                                             <label>Phone Number*</label>
-                                            <input type="text" name="phonenumber" placeholder="Enter your phone number"
-                                                required />
+                                            @error('phone_number')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            <input type="text" name="phone_number" placeholder="Enter your phone number"  />
                                         </span>
                                         <span class="ec-contact-wrap">
                                             <label>Comments/Questions*</label>
-                                            <textarea name="address"
-                                                placeholder="Please leave your comments here.."></textarea>
+                                            @error('comment')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            <textarea name="comment" placeholder="Please leave your comments here.." ></textarea>
                                         </span>
                                         <span class="ec-contact-wrap ec-recaptcha">
                                             <span class="g-recaptcha"
                                                 data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
                                                 data-callback="verifyRecaptchaCallback"
                                                 data-expired-callback="expiredRecaptchaCallback"></span>
-                                            <input class="form-control d-none" data-recaptcha="true" required
+                                            <input class="form-control d-none" data-recaptcha="true"
                                                 data-error="Please complete the Captcha">
                                             <span class="help-block with-errors"></span>
                                         </span>
@@ -80,22 +105,16 @@
                             <div class="ec_contact_map">
                                 <div class="ec_map_canvas">
                                     <iframe id="ec_map_canvas"
-                                        src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d71263.65594328841!2d144.93151478652146!3d-37.8734290780509!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1615963387757!5m2!1sen!2sus"></iframe>
+                                        src="https://www.google.com/maps/d/u/0/embed?mid=1122CMPdX0IhtF6SyyDVmlrSd7c0&msa=0&hl=en&ie=UTF8&t=m&vpsrc=6&ll=57.93818300000002%2C15.02929700000001&spn=4.667525%2C15.13916&z=6&output=embed"></iframe>
                                     <a href="https://sites.google.com/view/maps-api-v2/mapv2"></a>
                                 </div>
                             </div>
                             <div class="ec_contact_info">
                                 <h1 class="ec_contact_info_head">Contact us</h1>
                                 <ul class="align-items-center">
-                                    <li class="ec-contact-item"><i class="ecicon eci-map-marker"
-                                            aria-hidden="true"></i><span>Address :</span>71 Pilgrim Avenue Chevy Chase, east california. east california. MD
-                                        20815, USA</li>
-                                    <li class="ec-contact-item align-items-center"><i class="ecicon eci-phone"
-                                            aria-hidden="true"></i><span>Call Us :</span><a href="tel:+440123456789">+44 0123
-                                            456 789</a></li>
-                                    <li class="ec-contact-item align-items-center"><i class="ecicon eci-envelope"
-                                            aria-hidden="true"></i><span>Email :</span><a
-                                            href="mailto:example@ec-email.com">example@ec-email.com</a></li>
+                                    <li class="ec-contact-item"><i class="ecicon eci-map-marker" aria-hidden="true"></i><span>Address: </span>Klenavägen, Vendelsö Sweden</li>
+                                    <li class="ec-contact-item align-items-center"><i class="ecicon eci-phone" aria-hidden="true"></i><span>Call Us: </span><a href="tel:+31634150783">+31634150783</a></li>
+                                    <li class="ec-contact-item align-items-center"><i class="ecicon eci-envelope" aria-hidden="true"></i><span>Email: </span><a href="mailto:contact@sediq.net">contact@sediq.net</a></li>
                                 </ul>
                             </div>
                         </div>

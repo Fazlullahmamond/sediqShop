@@ -15,10 +15,13 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        // Get the authenticated user's wishlist items
-        $wishlistItems = auth()->user()->wishlist;
-
-        return view('wishlist.index', compact('wishlistItems'));
+        if(auth()->user()){
+            // Get the authenticated user's wishlist items
+            $wishlistItems = auth()->user()->wishlist;
+            return view('front.wishlist', compact('wishlistItems'));
+        }else{
+            return redirect('login');
+        }
     }
 
     /**

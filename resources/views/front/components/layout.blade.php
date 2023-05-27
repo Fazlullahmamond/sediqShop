@@ -11,12 +11,16 @@
     <meta name="description" content="Find all the latest wedding accessories at our online boutique store. Shop for wedding dresses, veils, shoes, and more.">
     <meta name="keywords" content="wedding, boutique, online store, accessories, dresses, veils, shoes">
 
-    <meta property="og:title" content="W World"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://www.sediq.net"/>
-    <meta property="og:image" content="{{ asset('front/assets/images/main-slider-banner/1.jpg') }}"/>
-    <meta property="og:description" content="Find all the latest wedding accessories at our online boutique store. Shop for wedding dresses, veils, shoes, and more."/>
-    <meta property="og:site_name" content="W World"/>
+    <meta property="og:title" content="<?php echo $title ?? "W World" ?>"/>
+    <meta property="og:type" content="<?php echo $type ?? "website" ?>"/>
+    <meta property="og:url" content="<?php echo $url ?? "https://www.sediq.net" ?>"/>
+    @if (isset($image))
+        <meta property="og:image" content="{{ asset($image) }}"/>
+    @else
+        <meta property="og:image" content="{{ asset("front/assets/images/product-image/product.jpg") }}"/>
+    @endif
+    <meta property="og:description" content="<?php echo $description ?? "Find all the latest wedding accessories at our online boutique store. Shop for wedding dresses, veils, shoes, and more." ?>"/>
+    <meta property="og:site_name" content="<?php echo $site_name ?? "W World" ?>"/>
 
 
     <!-- site Favicon -->
@@ -85,7 +89,7 @@
                                     type="text" id="searchProduct1">
                                     <button class="submit" type=""><i class="fi-rr-search"></i></button>
                                 </form>
-                                <div id="search-results1" style="position: absolute; z-index: 1; background-color: white; width: 500px; padding: 20px; box-shadow: black 10px 10px 20px; display:none;"></div>
+                                <div id="search-results1" style="position: absolute; z-index: 99; background-color: white; width: 500px; padding: 20px; box-shadow: black 10px 10px 20px; display:none;"></div>
                             </div>
                         </div>
                         <!-- Ec Header Search End -->
@@ -121,15 +125,15 @@
                                 <button class="dropdown-toggle" data-bs-toggle="dropdown"><i
                                         class="fi-rr-user"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item" href="{{ route("register") }}">Register</a></li>
                                     <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                                    <li><a class="dropdown-item" href="{{ route("register") }}">Register</a></li>
                                     <li><a class="dropdown-item" href="{{ route("login") }}">Login</a></li>
                                 </ul>
                             </div>
                             @endif
                                 <!-- Header User End -->
                                 <!-- Header wishlist Start -->
-                                <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
+                                <a href="{{ route("front.wishlist") }}" class="ec-header-btn ec-header-wishlist">
                                     <div class="header-icon"><i class="fi-rr-heart"></i></div>
                                     <span class="ec-header-count">
                                         @if (auth()->guest())
@@ -181,7 +185,7 @@
                                 <input class="form-control ec-search-bar" placeholder="Search products..." type="text" id="searchProduct2">
                                 <button class="submit" type=""><i class="fi-rr-search"></i></button>
                             </form>
-                            <div id="search-results2" style="position: absolute; z-index: 1; background-color: white; width: 300px; padding: 20px; box-shadow: black 10px 10px 20px; display:none;"></div>
+                            <div id="search-results2" style="position: absolute; z-index: 99; background-color: white; width: 300px; padding: 20px; box-shadow: black 10px 10px 20px; display:none;"></div>
                         </div>
                     </div>
                     <!-- Ec Header Search End -->
@@ -532,7 +536,7 @@
                                     <ul class="align-items-center">
                                         <li class="ec-footer-link"><a href="{{ route('front.aboutUs') }}">About us</a></li>
                                         <li class="ec-footer-link"><a href="{{ route('front.faq') }}">FAQ</a></li>
-                                        <li class="ec-footer-link"><a href="{{ route('front.deliveryInformation') }}">Delivery Information</a>
+                                        <li class="ec-footer-link"><a href="{{ route('front.blog') }}">Blog</a>
                                         </li>
                                         <li class="ec-footer-link"><a href="{{ route('front.contactUs') }}">Contact us</a></li>
                                     </ul>
@@ -546,8 +550,8 @@
                                     <ul class="align-items-center">
                                         <li class="ec-footer-link"><a href="user-profile.html">My Account</a></li>
                                         <li class="ec-footer-link"><a href="track-order.html">Order History</a></li>
-                                        <li class="ec-footer-link"><a href="wishlist.html">Wish List</a></li>
-                                        <li class="ec-footer-link"><a href="offer.html">Specials</a></li>
+                                        <li class="ec-footer-link"><a href="{{ route("front.wishlist") }}">Wish List</a></li>
+                                        <li class="ec-footer-link"><a href="{{ route("front.hotOffers") }}">Special Offers</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -557,12 +561,12 @@
                                 <h4 class="ec-footer-heading">Services</h4>
                                 <div class="ec-footer-links">
                                     <ul class="align-items-center">
-                                        <li class="ec-footer-link"><a href="track-order.html">Discount Returns</a></li>
+                                        <li class="ec-footer-link"><a href="{{ route('front.discountReturn') }}">Discount Returns</a></li>
                                         <li class="ec-footer-link"><a href="{{ route('front.privacy') }}">Privacy Policy </a>
                                         </li>
                                         <li class="ec-footer-link"><a href="{{ route('front.customer') }}">Customer Service</a>
                                         </li>
-                                        <li class="ec-footer-link"><a href="terms-condition.html">Term & condition</a>
+                                        <li class="ec-footer-link"><a href="{{ route('front.termsCondition') }}">Term & condition</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -665,7 +669,7 @@
                     <a href="{{ route('front.index') }}" class="ec-header-btn"><i class="fi-rr-home"></i></a>
                 </div>
                 <div class="ec-nav-panel-icons">
-                    <a href="wishlist.html" class="ec-header-btn"><i class="fi-rr-heart"></i><span
+                    <a href="{{ route("front.wishlist") }}" class="ec-header-btn"><i class="fi-rr-heart"></i><span
                             class="ec-cart-noti">
                             @if (auth()->guest())
                                 +
@@ -675,7 +679,7 @@
                         </span></a>
                 </div>
                 <div class="ec-nav-panel-icons">
-                    <a href="login.html" class="ec-header-btn"><i class="fi-rr-user"></i></a>
+                    <a href="{{ route("login") }}" class="ec-header-btn"><i class="fi-rr-user"></i></a>
                 </div>
 
             </div>
