@@ -22,6 +22,9 @@
                             <div class="col-6">
                                 <input id="text" name="name" class="form-control here slug-title" type="text"
                                     value="{{ $category->name }}">
+                                @if ($errors->has('name'))
+                                <div style="color: red;">{{ $errors->first('name') }}</div>
+                                @endif
                             </div>
                         </div>
 
@@ -30,6 +33,9 @@
                             <div class="col-6">
                                 <textarea id="sortdescription" name="description" cols="40" rows="2" class="form-control"
                                     value="">{{ $category->description }}</textarea>
+                                @if ($errors->has('description'))
+                                <div style="color: red;">{{ $errors->first('description') }}</div>
+                                @endif
                             </div>
                         </div>
 
@@ -37,6 +43,9 @@
                             <img src="{{ asset('storage/images/categories/'.$category->image) }}" width="200" height="200" alt="">                            <label class="col-6 col-form-label">Image</label>
                             <div class="col-6">
                                 <input type="file" id="Categoryimage" name="image" class="form-control">
+                                @if ($errors->has('image'))
+                                <div style="color: red;">{{ $errors->first('image') }}</div>
+                                @endif
                             </div>
                         </div>
 

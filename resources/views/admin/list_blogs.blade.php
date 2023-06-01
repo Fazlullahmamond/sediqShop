@@ -9,77 +9,49 @@
 @section('main')
 
     			<!-- CONTENT WRAPPER -->
-			<div class="ec-content-wrapper">
-				<div class="content">
-					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
-						<div>
-							<h1>Product</h1>
-							<p class="breadcrumbs"><span><a href="{{ route("admin.dashboard") }}">Dashboard</a></span>
-								<span><i class="mdi mdi-chevron-right"></i></span>List Product</p>
-						</div>
-						<div>
-							<a href="{{ route('products.create') }}" class="btn btn-primary"> Add Porduct</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<div class="card card-default">
-								<div class="card-body">
-									<div class="table-responsive">
-										<table id="responsive-data-table"  class="table"
-											style="width:100%">
-											<thead>
-												<tr>
-													<th>Product</th>
-													<th>Name</th>
-													<th>Price</th>
-													<th>Offer</th>
-													<th>Purchased</th>
-													<th>Stock</th>
-													<th>Status</th>
-													<th>Date</th>
-													<th>Action</th>
-												</tr>
-											</thead>
+				<div class="col-lg-12">
+					<div class="ec-cat-list card card-default">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="responsive-data-table" class="table">
+									<thead>
+										<tr>
+											<th>Thumb</th>
+											<th>Title</th>
+											<th>Description</th>
+											<th>Tags</th>
+											<th>Action</th>
+										</tr>
+									</thead>
 
-											<tbody>
-												<tr>
-													<td><img class="tbl-thumb" src="{{ asset('back/assets/img/products/p1.jpg') }}" alt="Product Image" /></td>
-													<td>Baby shoes</td>
-													<td>$20</td>
-													<td>25% OFF</td>
-													<td>61</td>
-													<td>5421</td>
-													<td>ACTIVE</td>
-													<td>2021-10-30</td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">Edit</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-
-											</tbody>
-										</table>
-									</div>
-								</div>
+									<tbody>
+										@foreach ($blogs as $blogs)
+										<tr>
+											<td><img src="{{ asset('storage/images/blogs/' ,$blogs->image) }}" width="150" height="100" alt=""></td>
+											<td>{{$blogs->title}}</td>
+											<td>
+												{{$blogs->description}}
+											</td>
+											<td>{{$blogs->tags}}</td>
+											<td>
+												<div class="btn-group">
+													<a type="button" href="{{ route('blog.edit', $blogs->id) }}" class="btn btn-outline-success">Edit</a>
+													<form action="{{ route('blog.destroy', $blogs->id) }}" method="POST" class="btn btn-outline-danger">
+														@csrf
+														@method('DELETE')
+														<button type="submit" onclick="return confirm('Are you sure you want to delete')">Delete</button>
+													</form>
+												</div>
+											</td>
+										</tr>												
+										@endforeach
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
-				</div> <!-- End Content -->
-			</div> <!-- End Content Wrapper -->
+				</div>
+			 <!-- End Content Wrapper -->
 
 @endsection
 

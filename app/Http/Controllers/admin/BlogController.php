@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\DB;
 class BlogController extends Controller
 {
     /**
@@ -36,24 +36,21 @@ class BlogController extends Controller
             'image' => 'required|image|max:2048',
             'tags' => 'required'
         ]);
-
-        $blog = new Blog();
-
-        $blog->title = $validatedData['title'];
-        $blog->description = $validatedData['description'];
-        $blog->tags = $validatedData['tags'];
-
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('blog_images'), $filename);
-            $blog->image = $filename;
+        $blog = array();
+        if(request()->image){
+            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+            $blog['image'] = $imageName;
+            $img_loc = 'storage/images/blogs/';
+            request()->image->move($img_loc , $imageName);
         }
+        $blog['title'] = $request->title;
+        $blog['description'] = $request->description;
+        $blog['tags'] = $request->tags;
+        $blog['image'] = $request->image;
+        $blog['created_at'] = now();
+        DB::table('blogs')->insert($blog);
 
-        $blog->save();
-
-        return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
+        return redirect()->route('blog.index')->with('success', 'Blog post created successfully.');  
     }
 
 
@@ -68,54 +65,47 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blog $blog)
-    {
-        return view('blogs.edit', compact('blog'));
+    public function edit($id)
+    {   $blog = Blog::find($id);
+        return view('admin.blogs.edit', compact('blog'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'required|image|max:2048|mimes:jpeg,png,jpg,gif',
             'tags' => 'required'
         ]);
-
-        $blog->title = $validatedData['title'];
-        $blog->description = $validatedData['description'];
-        $blog->tags = $validatedData['tags'];
-
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('blog_images'), $filename);
-            $blog->image = $filename;
+        $blog = array();
+        if(request()->image){
+            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
+            $blog['image'] = $imageName;
+            $img_loc = 'storage/images/blogs/';
+            request()->image->move($img_loc , $imageName);
         }
+        $blog['title'] = $request->title;
+        $blog['description'] = $request->description;
+        $blog['tags'] = $request->tags;
+        $blog['image'] = $request->image;
+        $blog['updated_at'] = now();
+        DB::table('blogs')->where('id',$id)->update($blog);
 
-        $blog->save();
-
-        return redirect()->route('blogs.index')->with('success', 'Blog post updated successfully.');
+        return redirect()->route('blog.index')->with('success', 'Blog post created successfully.');
     }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blog $blog)
+    public function destroy($id)
     {
-        // Delete image file if it exists
-        if (!empty($blog->image)) {
-            Storage::delete(public_path('blog_images/' . $blog->image));
-        }
-
-        $blog->delete();
-
-        return redirect()->route('blogs.index')->with('success', 'Blog post deleted successfully.');
+        $blog = blog::find($id)->delete();
+        return redirect()->route('blog.index')->with('success', 'Blog post deleted successfully.');
     }
 
 }
