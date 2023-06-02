@@ -57,7 +57,7 @@
 																	<div class="avatar-preview ec-preview">
 																		<div class="imagePreview ec-div-preview">
 																			<img class="ec-image-preview"
-																				src="{{ asset('back/assets/img/products/vender-upload-thumb-preview.jpg') }}"
+																				src="{{ asset('storage/images/blogs/'.$blog->image)}}"
 																				width="250" height="200"  alt="edit"  name='image'/>
 																		</div>
 																	</div>
