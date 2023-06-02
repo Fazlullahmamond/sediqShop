@@ -1,3 +1,12 @@
+<?php
+    $title = "New Fashion and Stylish Products";
+    $type = "website";
+    $url = "https://www.sediq.net/products";
+    $image = "front/assets/images/product-image/product.jpg";
+    $description = "Discover the latest fashion trends, explore diverse categories, and indulge in the joy of shopping at W World. Join our community of fashion enthusiasts and let us be your go-to destination for all your style desires. Experience the world of fashion at your fingertips with W World.";
+    $site_name = "W World";
+?>
+
 @extends('front.components.layout')
 
 @section('main')
@@ -9,7 +18,7 @@
                     <div class="section-title">
                         <h2 class="ec-bg-title">All our products</h2>
                         <h2 class="ec-title">All our products</h2>
-                        <p class="sub-title">Browse The Collection of Top Products</p>
+                        <p class="sub-title" style="text-align: justify;">Discover the latest fashion trends, explore diverse categories, and indulge in the joy of shopping at W World. Join our community of fashion enthusiasts and let us be your go-to destination for all your style desires. Experience the world of fashion at your fingertips with W World.</p>
                     </div>
                 </div>
             </div>
@@ -24,9 +33,9 @@
                             <div class="ec-pro-image">
                                 <a href="{{ route('product.details', $product->id) }}" class="image">
                                     <img class="main-image"
-                                        src="{{ $product->image }}" alt="Product" />
+                                        src="{{ $product->image }}" alt="{{ $product->tags }}" />
                                     <img class="hover-image"
-                                        src="{{ $product->image }}" alt="Product" />
+                                        src="{{ $product->image }}" alt="{{ $product->tags }}" />
                                 </a>
                                 @if ($product->discount != 0)
                                     <span class="percentage">{{ $product->discount }}%</span>
@@ -97,7 +106,7 @@
     <!-- Related Product end -->
 @endsection
 
-@section('modals')
+{{-- @section('modals')
 
     <!-- Modal -->
     <div class="modal fade" id="ec_quickview_modal" tabindex="-1" role="dialog">
@@ -206,4 +215,4 @@
         </div>
     </div>
     <!-- Modal end -->
-@endsection
+@endsection --}}

@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\UserController as AdminUsersController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\user\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -56,32 +57,39 @@ Route::get('/redirectTo', function () {
 
 
 // front pages
-Route::get('/searchProduct', [FrontController::class, 'search'])->name('front.search');
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
+Route::get('/searchProduct', [FrontController::class, 'search'])->name('front.search');
+Route::get('/searchBlog', [FrontController::class, 'searchBlog'])->name('front.searchBlog');
+
 Route::get('/privacy', [FrontController::class, 'privacy'])->name('front.privacy');
+Route::get('/terms-condition', [FrontController::class, 'termsCondition'])->name('front.termsCondition');
+Route::get('/customer-services', [FrontController::class, 'customerService'])->name('front.customer');
+Route::get('/discount-return', [FrontController::class, 'discountReturn'])->name('front.discountReturn');
+
+
 Route::get('/products', [FrontController::class, 'products'])->name('front.products');
 Route::get('/feature-products', [FrontController::class, 'featureProducts'])->name('front.featureProducts');
+Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
 Route::get('/product/{id}', [FrontController::class, 'productDetails'])->name('product.details');
 Route::get('/category/{id}', [FrontController::class, 'categoryProducts'])->name('category.products');
-
-
 Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
 Route::get('/blog/{id}', [FrontController::class, 'blogDetails'])->name('blog.details');
-
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('front.wishlist');
 Route::get('/about-us', [FrontController::class, 'aboutUs'])->name('front.aboutUs');
 Route::get('/contact-us', [FrontController::class, 'contactUs'])->name('front.contactUs');
+Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
 
-Route::get('/hot-offers', [FrontController::class, 'hotOffers'])->name('front.hotOffers');
 
 Route::get('/category/details/{id}', [ProductController::class, 'categoryDetails'])->name('category.details');
-
-
-Route::get('/faq', [FrontController::class, 'faq'])->name('front.faq');
-Route::get('/customer', [FrontController::class, 'customer'])->name('front.customer');
-Route::get('/deliveryInformation', [FrontController::class, 'deliveryInformation'])->name('front.deliveryInformation');
-
-
+Route::POST('/message-storing', [FrontController::class, 'contactUsStore'])->name('front.contactUsStore');
 Route::post('/newsletter/subscribe', [FrontController::class, 'subscribe'])->name('newsletter.subscribe');
+
+
+
+
+
+
+
 
 
 
