@@ -54,6 +54,7 @@
                                                             </div>
                                                         </td>
                                                         <td>{{ $reviews->created_at }}</td>
+														
                                                         @if ($reviews->status == 0)
                                                             <td style="color: red;">Pendding</td>
                                                         @elseif ($reviews->status == 1)
