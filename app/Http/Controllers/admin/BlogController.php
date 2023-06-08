@@ -47,7 +47,6 @@ class BlogController extends Controller
         $blog['description'] = $request->description;
         $blog['tags'] = $request->tags;
         $blog['image'] = $request->image;
-        $blog['created_at'] = now();
         DB::table('blogs')->insert($blog);
 
         return redirect()->route('blog.index')->with('success', 'Blog post created successfully.');  

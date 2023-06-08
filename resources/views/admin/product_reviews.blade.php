@@ -38,9 +38,7 @@
 											</thead>
 
 											<tbody>
-
                                                 @foreach ($product_reviews as $reviews)
-
                                                     <tr>
                                                         <td>{{ $reviews->user->name }}</td>
                                                         <td>{{ $reviews->product->title }}</td>
@@ -54,7 +52,6 @@
                                                             </div>
                                                         </td>
                                                         <td>{{ $reviews->created_at }}</td>
-														
                                                         @if ($reviews->status == 0)
                                                             <td style="color: red;">Pendding</td>
                                                         @elseif ($reviews->status == 1)
@@ -63,7 +60,6 @@
                                                             <td style="color: yellow;">Not Active</td>
                                                         @endif
                                                     </tr>
-
                                                 @endforeach
 
 											</tbody>

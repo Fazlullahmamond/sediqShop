@@ -16,6 +16,9 @@
                     <span><i class="mdi mdi-chevron-right"></i></span>Main Categories
                 </p>
             </div>
+            @if(Session::has('error'))
+                <p class="alert {{ Session::get('alert-class', 'alert-warning') }}">{{ Session::get('error') }}</p>
+            @endif
             <div class="row">
                 <div class="col-xl-4 col-lg-12">
                     <div class="ec-cat-list card card-default mb-24px">
@@ -139,3 +142,4 @@
     <link href="{{ asset('back/assets/plugins/data-tables/datatables.bootstrap5.min.css') }}" rel='stylesheet'>
     <link href="{{ asset('back/assets/plugins/data-tables/responsive.datatables.min.css') }}" rel='stylesheet'>
 @endsection
+

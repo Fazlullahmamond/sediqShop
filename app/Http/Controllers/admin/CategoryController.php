@@ -103,8 +103,15 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        $category = Category::find($id)->delete();
-        return redirect()->route('categories.index');
+        try {
+            DB::beginTransaction();
+            $category = Category::find($id)->delete();
+            DB::commit();
+            return redirect()->route('categories.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Category contains subcategories!');
+        }
 
     }
 

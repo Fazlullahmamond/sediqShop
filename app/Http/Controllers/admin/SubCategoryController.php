@@ -106,8 +106,15 @@ class SubCategoryController extends Controller
     //This method deletes an existing subcategory from the database.
     public function destroy($id)
     {
-        $subcategory = SubCategory::find($id);
-        $subcategory->delete();
-        return redirect()->route('subcategories.index');
+        try {
+            DB::beginTransaction();
+            $category = SubCategory::find($id)->delete();
+            DB::commit();
+            return redirect()->route('subcategories.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'subcategory contains category!');
+        }
+
     }
 }
