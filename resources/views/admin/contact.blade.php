@@ -4,8 +4,6 @@
 
 @extends('admin.components.layout')
 
-
-
 @section('main')
 
 
