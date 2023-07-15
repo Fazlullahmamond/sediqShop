@@ -38,9 +38,7 @@
 											</thead>
 
 											<tbody>
-
                                                 @foreach ($product_reviews as $reviews)
-
                                                     <tr>
                                                         <td>{{ $reviews->user->name }}</td>
                                                         <td>{{ $reviews->product->title }}</td>
@@ -62,7 +60,6 @@
                                                             <td style="color: yellow;">Not Active</td>
                                                         @endif
                                                     </tr>
-
                                                 @endforeach
 
 											</tbody>

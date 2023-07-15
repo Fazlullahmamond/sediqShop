@@ -12,6 +12,9 @@
 				<div class="content">
 					<div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
 						<h1>Sub Categories</h1>
+						@if (Session::has('error'))
+						<p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
+						@endif
 						<p class="breadcrumbs"><span><a href="{{ route("admin.dashboard") }}">Dashboard</a></span>
 							<span><i class="mdi mdi-chevron-right"></i></span>Sub Categories</p>
 					</div>
