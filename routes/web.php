@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\UserController as AdminUsersController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\productController as ControllersProductController;
 use App\Http\Controllers\user\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -86,7 +87,11 @@ Route::post('/newsletter/subscribe', [FrontController::class, 'subscribe'])->nam
 
 
 
-
+//stripe
+Route::get('/checkout', [ControllersProductController::class, 'checkout'])->name('checkout');
+Route::get('/success', [ControllersProductController::class, 'success'])->name('checkout.success');
+Route::get('/cancel', [ControllersProductController::class, 'cancel'])->name('checkout.cancel');
+Route::post('/webhook', [ControllersProductController::class, 'webhook'])->name('checkout.webhook');
 
 
 
