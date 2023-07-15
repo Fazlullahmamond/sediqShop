@@ -17,8 +17,8 @@ class WishlistController extends Controller
     {
         if(auth()->user()){
             // Get the authenticated user's wishlist items
-            $wishlistItems = auth()->user()->wishlist;
-            return view('front.wishlist', compact('wishlistItems'));
+            $products = auth()->user()->wishlist;
+            return view('front.wishlist', compact('products'));
         }else{
             return redirect('login');
         }

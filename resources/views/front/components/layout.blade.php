@@ -105,7 +105,7 @@
                                         class="fi-rr-user"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a class="dropdown-item" href="{{ route('redirectTo') }}">Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('checkout') }}">Checkout</a></li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <li>
@@ -125,7 +125,7 @@
                                 <button class="dropdown-toggle" data-bs-toggle="dropdown"><i
                                         class="fi-rr-user"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('checkout') }}">Checkout</a></li>
                                     <li><a class="dropdown-item" href="{{ route("register") }}">Register</a></li>
                                     <li><a class="dropdown-item" href="{{ route("login") }}">Login</a></li>
                                 </ul>
@@ -344,7 +344,12 @@
                                             src="{{ $item->product->image }}" alt="product"></a>
                                     <div class="ec-pro-content">
                                         <a href="{{ route('product.details', $item->product->id) }}" class="cart_pro_title">{{ $item->product->title }}</a>
-                                        <span class="cart-price"><span>${{ $item->product->price }}</span> x {{ $item->product->quantity }} </span>
+                                        @if($item->product->discount > 0)
+                                            <span class="cart-price"><del>${{ number_format($item->product->price, 2) }}</del></span>
+                                            <span class="cart-price"><span>${{ number_format($item->product->price - ($item->product->price * ($item->product->discount / 100)), 2) }}</span> x {{ $item->quantity }} </span>
+                                        @else
+                                            <span class="cart-price"><span>${{ number_format($item->product->price, 2) }}</span> x {{ $item->quantity }} </span>
+                                        @endif
                                         @if($item->product->discount > 0)
                                             {{ $item->product->discount }} % OFF
                                         @endif
@@ -386,19 +391,15 @@
                                             $totalPrice += $subtotal;
                                         @endphp
                                     @endforeach
-                                    @php
-                                        $totalPrice = number_format((float)$subtotal, 2, '.', '');
-                                    @endphp
-
                                     <td class="text-left">Total :</td>
-                                    <td class="text-right primary-color">${{ $totalPrice }}</td>
+                                    <td class="text-right primary-color">${{ number_format($totalPrice, 2); }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="cart_btn">
                         <a href="cart.html" class="btn btn-primary">View Cart</a>
-                        <a href="checkout.html" class="btn btn-secondary">Checkout</a>
+                        <a href="{{ route('checkout') }}" class="btn btn-secondary">Checkout</a>
                     </div>
                 </div>
             @endif
