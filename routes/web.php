@@ -44,7 +44,7 @@ Route::get('/redirectTo', function () {
         if ($role == 1) {
             return Redirect::route('admin.dashboard');
         } elseif ($role == 0) {
-            return Redirect::route('user.dashboard');
+            return Redirect::route('front.index');
         } else {
             Auth::logout();
             return redirect('/login');
@@ -127,7 +127,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
 // user pages route here
 Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
-    Route::get('/dashboard', [AdminUsersController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('/dashboard', [AdminUsersController::class, 'index'])->name('user.dashboard');
+    Route::get('/addToCart', [AdminUsersController::class, 'addToCart'])->name('user.addToCart');
+    Route::get('/removeFromCart', [AdminUsersController::class, 'removeFromCart'])->name('user.removeFromCart');
+
 //     Route::resource('user.addresses', 'UserAddressController');
 //     Route::resource('products.reviews', 'ProductReviewController');
 //     Route::resource('cart.items', 'CartItemsController');
