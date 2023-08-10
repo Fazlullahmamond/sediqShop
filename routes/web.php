@@ -58,7 +58,7 @@ Route::get('/redirectTo', function () {
 
 // front pages
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
-Route::get('/searchProduct', [FrontController::class, 'search'])->name('front.search');
+Route::get('/searchProduct', [FrontCopntroller::class, 'search'])->name('front.search');
 Route::get('/searchBlog', [FrontController::class, 'searchBlog'])->name('front.searchBlog');
 
 Route::get('/privacy', [FrontController::class, 'privacy'])->name('front.privacy');
