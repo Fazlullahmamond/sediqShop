@@ -77,15 +77,13 @@ class CategoryController extends Controller
 
     //receives the input from the edit view and updates an existing category in the database.
     public function update(Request $request, $id)
-    // {
-    //     $category = Category::find($id);
-    //     $category->name = $request->input('name');
-    //     $category->description = $request->input('description');
-    //     // $category->image = $request->input('image');
-    //     $category->save();
-    //     return redirect()->route('categories.index');
-    // }
     {
+        $validatedData = $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:255',
+            'image' => 'required|mimes:jpeg,png,jpg,gif',
+        ]);
+        
         $category = Category::find($id);
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
@@ -105,8 +103,15 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        $category = Category::find($id)->delete();
-        return redirect()->route('categories.index');
+        try {
+            DB::beginTransaction();
+            $category = Category::find($id)->delete();
+            DB::commit();
+            return redirect()->route('categories.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Category contains subcategories!');
+        }
 
     }
 

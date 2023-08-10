@@ -2,7 +2,7 @@
 $title = "About Us";
 $type = "website";
 $url = "https://www.sediq.net/about-us";
-$image = "front/assets/images/offer-image/1.jpg";
+$image = "front/assets/images/offer-image/about.png";
 $description = "Find all the latest wedding accessories at our online boutique store. Shop for wedding dresses, veils, shoes, and more.";
 $site_name = "W World";
 ?>
@@ -49,7 +49,7 @@ $site_name = "W World";
                     <div class="row">
                         <div class="col-md-6 ec-cms-block ec-abcms-block text-center">
                             <div class="ec-cms-block-inner">
-                                <img class="a-img" src="{{ asset('front/assets/images/offer-image/1.jpg') }} "
+                                <img class="a-img" src="{{ asset('front/assets/images/offer-image/about.png') }} "
                                     alt="about">
                             </div>
                         </div>

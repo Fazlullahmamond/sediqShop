@@ -110,9 +110,11 @@ $site_name = 'W World';
                                                 <div class="ec-single-sales-title">sales accelerators</div>
                                                 <div class="ec-single-sales-visitor">real time
                                                     <span>{{ mt_rand(1, 100) }}</span> visitor
-                                                    right now!</div>
+                                                    right now!
+                                                </div>
                                                 <div class="ec-single-sales-progress">
-                                                    <span class="ec-single-progress-desc">Hurry up! only {{ $product->quantity }} left in stock</span>
+                                                    <span class="ec-single-progress-desc">Hurry up! only
+                                                        {{ $product->quantity }} left in stock</span>
                                                     <span class="ec-single-progressbar"></span>
                                                 </div>
                                                 <div class="ec-single-sales-countdown">
@@ -152,25 +154,36 @@ $site_name = 'W World';
                                                 </div>
                                             </div>
                                         </div>
+
+                                        @if (Auth::check())
                                         <div class="ec-single-qty">
                                             <div class="qty-plus-minus">
-                                                <input class="qty-input" type="text" name="ec_qtybtn"
+                                                <input class="qty-input" type="text" name="ec_qtybtn" id='qtyinput'
                                                     value="1" />
+                                                <input type="text" name="product_id"
+                                                    id='product_id' value="{{ $product->id }}" hidden />
                                             </div>
                                             <div class="ec-single-cart ">
-                                                <button class="btn btn-primary">Add To Cart</button>
+                                                <button class="btn btn-primary" id="addToCartBTN">Add To Cart</button>
                                             </div>
                                             <div class="ec-single-wishlist">
                                                 <a class="ec-btn-group wishlist" title="Wishlist"><i
                                                         class="fi-rr-heart"></i></a>
                                             </div>
-                                            <div class="ec-single-quickview">
+                                            {{-- <div class="ec-single-quickview">
                                                 <a href="#" class="ec-btn-group quickview"
                                                     data-link-action="quickview" title="Quick view"
                                                     data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><i
                                                         class="fi-rr-eye"></i></a>
+                                            </div> --}}
+                                        </div>
+                                        @else
+                                        <div class="ec-single-qty">
+                                            <div class="ec-single-cart">
+                                                <a href="{{ route('login') }}" style="margin: 0px 0px;"><button style="margin: 0px 0px;" class="btn btn-primary">Login</button></a>
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="ec-single-social">
                                             <ul class="mb-0">
                                                 <li class="list-inline-item facebook"><a target="_blank"
@@ -348,13 +361,15 @@ $site_name = 'W World';
                             <div class="ec-pro-image-outer">
                                 <div class="ec-pro-image">
                                     <a href="{{ route('product.details', $product->id) }}" class="image">
-                                        <img class="main-image" src="{{ $product->image }}" alt="{{ $product->tag }}" />
-                                        <img class="hover-image" src="{{ $product->image }}" alt="{{ $product->tag }}" />
+                                        <img class="main-image" src="{{ $product->image }}"
+                                            alt="{{ $product->tag }}" />
+                                        <img class="hover-image" src="{{ $product->image }}"
+                                            alt="{{ $product->tag }}" />
                                     </a>
                                     @if ($product->discount != 0)
                                         <span class="percentage">{{ $product->discount }}%</span>
                                     @endif
-                                    
+
                                     <div class="ec-pro-actions">
                                         <button title="Add To Cart" class="add-to-cart"><i
                                                 class="fi-rr-shopping-basket"></i> Add To Cart</button>
@@ -363,7 +378,8 @@ $site_name = 'W World';
                                 </div>
                             </div>
                             <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="{{ route('product.details', $product->id) }}">{{ $product->title }}</a>
+                                <h5 class="ec-pro-title"><a
+                                        href="{{ route('product.details', $product->id) }}">{{ $product->title }}</a>
                                 </h5>
                                 <div class="ec-pro-rating">
                                     @php
@@ -411,4 +427,35 @@ $site_name = 'W World';
         </div>
     </section>
     <!-- Related Product end -->
+@endsection
+
+@section('scripts')
+    <script>
+
+        $(document).ready(function() {
+            // id="ec-single-countdown"
+            const selectElement = document.querySelector('#addToCartBTN');
+            selectElement.addEventListener('click', (event) => {
+                $('#ec-overlay').attr('style', 'opacity: 0.7;');
+                var quantity = $('#qtyinput').val();
+                var product_id = $('#product_id').val();
+                $.ajax({
+                    url: '/user/addToCart',
+                    data: {
+                        quantity: quantity,
+                        product_id: product_id
+                    },
+                    success: function(data) {
+                        showNotification(data.message);
+                        location.reload();
+                    },
+                    error: function(error) {
+                        showNotification(data.message);
+                        location.reload();
+                    }
+                });
+            });
+
+        });
+    </script>
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\UserController as AdminUsersController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\front\FrontController;
+use App\Http\Controllers\productController as ControllersProductController;
 use App\Http\Controllers\user\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -43,7 +44,7 @@ Route::get('/redirectTo', function () {
         if ($role == 1) {
             return Redirect::route('admin.dashboard');
         } elseif ($role == 0) {
-            return Redirect::route('user.dashboard');
+            return Redirect::route('front.index');
         } else {
             Auth::logout();
             return redirect('/login');
@@ -86,7 +87,11 @@ Route::post('/newsletter/subscribe', [FrontController::class, 'subscribe'])->nam
 
 
 
-
+//stripe
+Route::get('/checkout', [ControllersProductController::class, 'checkout'])->name('checkout');
+Route::get('/success', [ControllersProductController::class, 'success'])->name('checkout.success');
+Route::get('/cancel', [ControllersProductController::class, 'cancel'])->name('checkout.cancel');
+Route::post('/webhook', [ControllersProductController::class, 'webhook'])->name('checkout.webhook');
 
 
 
@@ -122,7 +127,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
 // user pages route here
 Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
-    Route::get('/dashboard', [AdminUsersController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('/dashboard', [AdminUsersController::class, 'index'])->name('user.dashboard');
+    Route::get('/addToCart', [AdminUsersController::class, 'addToCart'])->name('user.addToCart');
+    Route::get('/removeFromCart', [AdminUsersController::class, 'removeFromCart'])->name('user.removeFromCart');
+
 //     Route::resource('user.addresses', 'UserAddressController');
 //     Route::resource('products.reviews', 'ProductReviewController');
 //     Route::resource('cart.items', 'CartItemsController');

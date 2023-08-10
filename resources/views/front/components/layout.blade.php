@@ -50,13 +50,28 @@
 
     <!-- Background css -->
     <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('front/assets/css/backgrounds/bg-4.css') }}">
-
+    <style>
+        .notification {
+            position: fixed;
+            z-index: 99999;
+            bottom: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
     @yield('styles')
 
 </head>
 
 <body>
-    <div id="ec-overlay">
+    <div class="notification">
+        <span id="notification-message"></span>
+    </div>
+    <div id="ec-overlay" style="opacity: 0.7;">
         <div class="ec-ellipsis">
             <div></div>
             <div></div>
@@ -105,7 +120,7 @@
                                         class="fi-rr-user"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a class="dropdown-item" href="{{ route('redirectTo') }}">Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('checkout') }}">Checkout</a></li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <li>
@@ -125,7 +140,6 @@
                                 <button class="dropdown-toggle" data-bs-toggle="dropdown"><i
                                         class="fi-rr-user"></i></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
                                     <li><a class="dropdown-item" href="{{ route("register") }}">Register</a></li>
                                     <li><a class="dropdown-item" href="{{ route("login") }}">Login</a></li>
                                 </ul>
@@ -344,11 +358,17 @@
                                             src="{{ $item->product->image }}" alt="product"></a>
                                     <div class="ec-pro-content">
                                         <a href="{{ route('product.details', $item->product->id) }}" class="cart_pro_title">{{ $item->product->title }}</a>
-                                        <span class="cart-price"><span>${{ $item->product->price }}</span> x {{ $item->product->quantity }} </span>
+                                        @if($item->product->discount > 0)
+                                            <span class="cart-price"><del>${{ number_format($item->product->price, 2) }}</del></span>
+                                            <span class="cart-price"><span>${{ number_format($item->product->price - ($item->product->price * ($item->product->discount / 100)), 2) }}</span> x {{ $item->quantity }} </span>
+                                        @else
+                                            <span class="cart-price"><span>${{ number_format($item->product->price, 2) }}</span> x {{ $item->quantity }} </span>
+                                        @endif
                                         @if($item->product->discount > 0)
                                             {{ $item->product->discount }} % OFF
                                         @endif
                                         <a href="{{ route('product.details', $item->product->id) }}" class="cart_pro_title">View product</a>
+                                        <a class='removeFromCart remove' data-item-id='{{ $item->product->id }}'>×</a>
                                     </div>
                                 </li>
                             </ul>
@@ -386,19 +406,15 @@
                                             $totalPrice += $subtotal;
                                         @endphp
                                     @endforeach
-                                    @php
-                                        $totalPrice = number_format((float)$subtotal, 2, '.', '');
-                                    @endphp
-
                                     <td class="text-left">Total :</td>
-                                    <td class="text-right primary-color">${{ $totalPrice }}</td>
+                                    <td class="text-right primary-color">${{ number_format($totalPrice, 2); }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="cart_btn">
                         <a href="cart.html" class="btn btn-primary">View Cart</a>
-                        <a href="checkout.html" class="btn btn-secondary">Checkout</a>
+                        <a href="{{ route('checkout') }}" class="btn btn-secondary">Checkout</a>
                     </div>
                 </div>
             @endif
@@ -858,12 +874,12 @@
     <script src="{{ asset('front/assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('front/assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
     <!-- Google translate Js -->
-    <script src="{{ asset('front/assets/js/vendor/google-translate.js') }}"></script>
+    {{-- <script src="{{ asset('front/assets/js/vendor/google-translate.js') }}"></script>
     <script>
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
         }
-    </script>
+    </script> --}}
     <!-- Main Js -->
     <script src="{{ asset('front/assets/js/vendor/index.js') }}"></script>
     <script src="{{ asset('front/assets/js/main.js') }}"></script>
@@ -878,9 +894,44 @@
 
 
 <script>
+    function showNotification(message) {
+        var notification = document.querySelector('.notification');
+        var notificationMessage = document.getElementById('notification-message');
+
+        notificationMessage.textContent = message;
+        notification.style.display = 'block';
+
+        setTimeout(function() {
+            notification.style.display = 'none';
+        }, 3000); // Hide the notification after 3 seconds (adjust as needed)
+    }
+
+
     $(document).ready(function() {
+        document.querySelectorAll('.removeFromCart').forEach(button => {
+            button.addEventListener('click', function(){
+                var product_id =  button.getAttribute('data-item-id');
+                $('#ec-overlay').attr('style', 'opacity: 0.7; z-index: 9999;');
+                $.ajax({
+                    url: '/user/removeFromCart',
+                    data: {
+                        product_id: product_id
+                    },
+                    success: function(data) {
+                        showNotification(data.message);
+                        location.reload();
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        location.reload();
+                    }
+                })
+            });
+        });
+
         $('#newsletter-form').submit(function(event) {
             event.preventDefault();
+            $('#ec-overlay').attr('style', 'opacity: 0.7; z-index: 9999;');
             var news_email = $("#newsEmail");
             $("#ec-news-btn").attr("disabled", true);
             $.ajax({
@@ -891,13 +942,14 @@
                 type: $(this).attr('method'), // form method
                 data: news_email,
                 success: function(response) {
+                    $('#ec-overlay').attr('style', 'opacity: 0.7; display:none;');
                     Swal.fire("Success!", "You are now subscribed to our newsletter.", "success"); // show success message
                     $('#newsletter-form')[0].reset(); // reset form
                     $("#ec-news-btn").attr("disabled", false);
                 },
                 error: function(xhr) {
+                    $('#ec-overlay').attr('style', 'opacity: 0.7; display:none;');
                     var err = JSON.parse(xhr.responseText)
-                    console.log(err);
                     Swal.fire("Error!", err['message'], "error"); // show error message
                     $("#ec-news-btn").attr("disabled", false);
                 }
@@ -929,11 +981,11 @@
                 alert(response);
             }
             });
-    });
+        });
 
-    $(document).click(function() {
-        $('#search-results1').hide();
-    });
+        $(document).click(function() {
+            $('#search-results1').hide();
+        });
     });
 </script>
 
@@ -944,28 +996,28 @@
         selectElement.addEventListener('input', (event) => {
         var query = $('#searchProduct2').val();
             $.ajax({
-            url: '/searchProduct',
-            data: {query: query},
-            success: function(response) {
-                var results = response;
-                var dropdown = $('#search-results2');
-                dropdown.empty();
-                dropdown.show();
-                if (results.length > 0) {
-                $.each(results, function(index, result) {
-                    var link = '<a href="/product/'+result.id+'">'+result.title+'</a>';
-                    dropdown.append('<div class="result">'+link+'</div>');
-                });
-                } else {
-                dropdown.append('<div class="no-results">No results found</div>');
+                url: '/searchProduct',
+                data: {query: query},
+                success: function(response) {
+                    var results = response;
+                    var dropdown = $('#search-results2');
+                    dropdown.empty();
+                    dropdown.show();
+                    if (results.length > 0) {
+                    $.each(results, function(index, result) {
+                        var link = '<a href="/product/'+result.id+'">'+result.title+'</a>';
+                        dropdown.append('<div class="result">'+link+'</div>');
+                    });
+                    } else {
+                    dropdown.append('<div class="no-results">No results found</div>');
+                    }
+                    dropdown.show();
+                },
+                error: function(response) {
+                    alert(response);
                 }
-                dropdown.show();
-            },
-            error: function(response) {
-                alert(response);
-            }
             });
-    });
+        });
 
         $(document).click(function() {
             $('#search-results2').hide();
