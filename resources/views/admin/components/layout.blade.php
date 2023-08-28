@@ -21,6 +21,7 @@
         integrity="sha512-LX0YV/MWBEn2dwXCYgQHrpa9HJkwB+S+bnBpifSOTO1No27TqNMKYoAn6ff2FBh03THAzAiiCwQ+aPX+/Qt/Ow=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
     <!-- PLUGINS CSS STYLE -->
     <link href="{{ asset('back/assets/plugins/daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('back/assets/plugins/simplebar/simplebar.css') }}" rel="stylesheet" />
@@ -80,11 +81,7 @@
                                             <span class="nav-text">Users List</span>
                                         </a>
                                     </li>
-                                    <li class="">
-                                        <a class="sidenav-item-link" href="{{ route('adminUsers.create') }}">
-                                            <span class="nav-text">Add Users</span>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                             <hr>
@@ -241,7 +238,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="user-profile.html">
+                                        <a href="{{route('showpage')}}">
                                             <i class="mdi mdi-account"></i> My Profile
                                         </a>
                                     </li>

@@ -101,7 +101,7 @@
 											<tbody>
 												@foreach ($subcategories as $subcategories)
 												<tr>
-													<td><img src="{{ asset('storage/images/subcategories/'.$subcategories->image) }}" width="150" height="100" alt=""></td>
+													<td><img src="{{ asset($subcategories->image_url) }}" width="150" height="100" alt=""></td>
 													<td>{{$subcategories->name}}</td>
 													<td>
 														{{$subcategories->description}}

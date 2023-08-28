@@ -42,9 +42,8 @@
                             <label for="text" class="col-12 col-form-label">Category</label>
                             <div class="col-6">
                                 <select class="selecter" id="selecter" name="selecter">
-                                    <option selected>{{ $subcategory->category->name}}</option>
                                     @foreach ($categories as $categories)
-                                    <option value="{{ $categories->id }}">{{ $categories->name }}</option>
+                                    <option value="{{ $categories->id }}" {{ $categories->id == $subcategory->category->id ? 'selected' : '' }}>{{ $categories->name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('selecter'))
@@ -54,7 +53,7 @@
                         </div>
 
                         <div class="form-group ">
-                            <img src="{{ asset('storage/images/subcategories/'.$subcategory->image) }}" width="200" height="200" alt="">                            <label class="col-6 col-form-label">Image</label>
+                            <img src="{{ asset($subcategory->image_url) }}" width="200" height="200" alt="">                            <label class="col-6 col-form-label">Image</label>
                             <div class="col-6">
                                 <input type="file" id="Categoryimage" name="image" class="form-control">
                                 @if ($errors->has('image'))

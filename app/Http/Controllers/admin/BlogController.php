@@ -14,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::orderBy('created_at', 'DESC')->get();
         return view('admin.list_blogs', compact('blogs'));
     }
     /**
@@ -31,25 +31,21 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'image' => 'required|image|max:2048',
-            'tags' => 'required'
+            'title' => ['required','string','max:255'],
+            'description' => ['required','string','max:255'],
+            'image' => 'required|mimes:jpeg,png,jpg,gif',
+            'tags' => ['nullable','string','max:255']
         ]);
-        $blog = array();
+
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $blog['image'] = $imageName;
+            $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/blogs/';
             request()->image->move($img_loc , $imageName);
         }
-        $blog['title'] = $request->title;
-        $blog['description'] = $request->description;
-        $blog['tags'] = $request->tags;
-        $blog['image'] = $request->image;
-        DB::table('blogs')->insert($blog);
 
-        return redirect()->route('blog.index')->with('success', 'Blog post created successfully.');  
+        $blog = Blog::create($validatedData);
+        return to_route('blog.index')->with('success', 'Blog post created successfully.');  
     }
 
 
@@ -75,24 +71,23 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'image' => 'required|image|max:2048|mimes:jpeg,png,jpg,gif',
-            'tags' => 'required'
+            'title' => ['required','string','max:255'],
+            'description' => ['required','string','max:255'],
+            'tags' => ['nullable','string','max:255']
         ]);
-        $blog = array();
+        
         if(request()->image){
+            $validatedData = $request->validate([
+                'image' => 'required|mimes:jpeg,png,jpg,gif',
+            ]);
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $blog['image'] = $imageName;
+            $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/blogs/';
             request()->image->move($img_loc , $imageName);
         }
-        $blog['title'] = $request->title;
-        $blog['description'] = $request->description;
-        $blog['tags'] = $request->tags;
-        $blog['image'] = $request->image;
-        $blog['updated_at'] = now();
-        DB::table('blogs')->where('id',$id)->update($blog);
+
+        $blog = Blog::findOrFail($id);
+        $blog->update($validatedData);
 
         return redirect()->route('blog.index')->with('success', 'Blog post created successfully.');
     }

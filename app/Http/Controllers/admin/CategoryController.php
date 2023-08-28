@@ -15,7 +15,7 @@ class CategoryController extends Controller
     //retrieves all the categories from the database and returns them to the view.
     public function index()
     {
-        $categories = Category::All();
+        $categories = Category::orderBy('created_at', 'DESC')->get();
         return view('admin.all_categories', compact('categories'));
     }
 
@@ -31,21 +31,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
-            'image' => 'required|mimes:jpeg,png,jpg,gif',
+            'name'=>['required','string','max:255'],
+            'description' => ['nullable','string','max:255'],
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif',
         ]);
 
-        $data = array();
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $data['image'] = $imageName;
+            $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/categories/';
             request()->image->move($img_loc , $imageName);
         }
-        $data['name'] = $request->name;
-        $data['description'] = $request->description;
-        DB::table('categories')->insert($data);
+
+        $category = Category::create($validatedData);
         return redirect()->back()->with('success', 'Saved successfully');
     }
 
@@ -79,21 +77,22 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
-            'image' => 'required|mimes:jpeg,png,jpg,gif',
+            'name'=>['required','string','max:255'],
+            'description' => ['nullable','string','max:255'],
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif',
         ]);
         
         $category = Category::find($id);
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $data['image'] = $imageName;
+            $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/categories/';
             request()->image->move($img_loc , $imageName);
         }
-        $data['name'] = $request->name;
-        $data['description'] = $request->description;
-        DB::table('categories')->where('id',$id)->update($data);
+       
+        $category = Category::findOrFail($id);
+        $category->update($validatedData);
+        
         return redirect()->route('categories.index');
     }
 

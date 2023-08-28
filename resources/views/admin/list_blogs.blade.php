@@ -27,7 +27,8 @@
 									<tbody>
 										@foreach ($blogs as $blogs)
 										<tr>
-											<td><img src="{{ asset('storage/images/blogs/' ,$blogs->image) }}" width="150" height="100" alt=""></td>
+											<td><img src="{{ asset($blogs->image_url) }}"
+												width="150" height="100" alt=""></td>
 											<td>{{$blogs->title}}</td>
 											<td>
 												{{$blogs->description}}

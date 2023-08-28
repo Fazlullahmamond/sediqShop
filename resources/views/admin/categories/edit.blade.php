@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group ">
-                            <img src="{{ asset('storage/images/categories/'.$category->image) }}" width="200" height="200" alt="">                            <label class="col-6 col-form-label">Image</label>
+                            <img src="{{ asset($category->image_url) }}" width="200" height="200" alt="">                            <label class="col-6 col-form-label">Image</label>
                             <div class="col-6">
                                 <input type="file" id="Categoryimage" name="image" class="form-control">
                                 @if ($errors->has('image'))
