@@ -10,6 +10,7 @@ use App\Models\Newsletter;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
 {
@@ -162,14 +163,14 @@ public function customerService()
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $products = Product::where('title', 'LIKE', "%$query%")->get();
+        $products = Product::where('title', 'LIKE', "%$query%")->where('user_id', Auth::user()->id)->get();
         return response()->json($products);
     }
 
     public function searchBlog(Request $request)
     {
         $query = $request->input('query');
-        $products = Blog::where('title', 'LIKE', "%$query%")->get();
+        $products = Blog::where('user_id', Auth::user()->id)->where('title', 'LIKE', "%$query%")->get();
         return response()->json($products);
     }
 

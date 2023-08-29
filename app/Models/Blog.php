@@ -27,7 +27,7 @@ class Blog extends Model
         if (!$image || $image == "0") {
             return '/storage/users/1.jpg';
         } else {
-            return $image;
+            return '/storage/images/blogs/'.$image;
         }
     }
 

@@ -26,6 +26,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'gender',
+        'status',
+        'profile_photo_path',
         'password',
     ];
 
@@ -71,7 +74,7 @@ class User extends Authenticatable
         if (!$image || $image == "0") {
             return '/storage/users/1.jpg';
         } else {
-            return $image;
+            return '/storage/users/'.$image;
         }
     }
 

@@ -13,7 +13,7 @@ class SubCategoryController extends Controller
     //retrieves all the subcategories from the database and returns them to the view.
     public function index()
     {
-        $subcategories = SubCategory::All();
+        $subcategories = SubCategory::orderBy('created_at', 'DESC')->get();
         $categories = category::All();
         return view('admin.all_subcategories', compact('subcategories','categories'));
     }
@@ -32,24 +32,20 @@ class SubCategoryController extends Controller
     {
 
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
-            'selecter' => 'required|min:3|max:255',
-            'image' => 'required|mimes:jpeg,png,jpg,gif',
+            'name' => ['required','string','max:255'],
+            'description' => ['nullable','string','max:255'],
+            'selecter' => 'required|integer|max:255',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif',
         ]);
 
-        $data = array();
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $data['image'] = $imageName;
+            $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/subcategories/';
             request()->image->move($img_loc , $imageName);
         } 
-        $data['name'] = $request->name;
-        $data['description'] = $request->description;
-        $data['category_id'] = $request->selecter;
-        $data['created_at'] = now();
-        DB::table('sub_categories')->insert($data);
+   
+        $subcategory = SubCategory::create($validatedData);
         return redirect()->back()->with('success', 'Saved successfully');
     }
 
@@ -80,25 +76,22 @@ class SubCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'required|min:3|max:255',
-            'selecter' => 'required|min:3|max:255',
-            'image' => 'required|mimes:jpeg,png,jpg,gif',
+            'name' => ['required','string','max:255'],
+            'description' => ['nullable','string','max:255'],
+            'selecter' => 'required|integer|max:255',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif',
         ]);
         
-        $data = array();
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $data['image'] = $imageName;
+            $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/subcategories/';
             request()->image->move($img_loc , $imageName);
         } 
-        $data['name'] = $request->name;
-        $data['description'] = $request->description;
-        $data['category_id'] = $request->selecter;
-        $data['updated_at'] = now();
-        DB::table('sub_categories')->where('id',$id)->update($data);
-        return redirect()->back()->with('success', 'Saved successfully');
+
+        $subcategory = SubCategory::findOrFail($id);
+        $subcategory->update($validatedData);
+        return redirect()->route('subcategories.index')->with('success', 'Saved successfully');
     }
 
 

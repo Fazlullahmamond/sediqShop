@@ -89,7 +89,7 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                             <tr>
-                                                <td><img src="{{ asset('storage/images/categories/' . $category->image) }}"
+                                                <td><img src="{{ asset($category->image_url) }}"
                                                         width="150" height="100" alt=""></td>
                                                 <td>{{ $category->name }}</td>
                                                 <td>
