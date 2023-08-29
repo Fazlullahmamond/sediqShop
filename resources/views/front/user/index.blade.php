@@ -152,63 +152,63 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ec-vendor-block-detail">
-                                    <div class="thumb-upload">
-                                        <div class="thumb-edit">
-                                            <input type='file' id="thumbUpload02" class="ec-image-upload"
-                                                accept=".png, .jpg, .jpeg" />
-                                            <label><i class="fi-rr-edit"></i></label>
-                                        </div>
-                                        <div class="thumb-preview ec-preview">
-                                            <div class="image-thumb-preview">
-                                                <img class="image-thumb-preview ec-image-preview v-img"
-                                                    src="{{ asset('front/assets/images/user/1.jpg') }}" alt="edit" />
+                                
+                                <div class="ec-vendor-upload-detail">
+                                    <form class="row g-3" action="{{ route('profile') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="ec-vendor-block-detail">
+                                            <div class="thumb-upload">
+                                                <div class="thumb-edit">
+                                                    <input type='file' name="profile_photo_path" id="thumbUpload02" value="" class="ec-image-upload"
+                                                        accept=".png, .jpg, .jpeg" />
+                                                    <label><i class="fi-rr-edit"></i></label>
+                                                </div>
+                                                <div class="thumb-preview ec-preview">
+                                                    <div class="image-thumb-preview">
+                                                        <img class="image-thumb-preview ec-image-preview v-img"
+                                                            src="" alt="edit" name='profile_photo_path' />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="ec-vendor-upload-detail">
-                                    <form class="row g-3">
+
                                         <div class="col-md-6 space-t-15">
-                                            <label class="form-label">First name</label>
-                                            <input type="text" class="form-control">
+                                            <label for="name">Full Name</label>
+                                            @if ($errors->has('name'))
+                                                <span style="color: red;">{{ $errors->first('name') }}</span>
+                                            @endif
+                                            <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $users->name) }}" placeholder="Enter your name">
                                         </div>
+
                                         <div class="col-md-6 space-t-15">
-                                            <label class="form-label">Last name</label>
-                                            <input type="text" class="form-control">
+                                            <label for="email">Email</label>
+                                            @if ($errors->has('email'))
+                                                <span style="color: red;">{{ $errors->first('email') }}</span>
+                                            @endif
+                                            <input type="email" class="form-control" name="email" id="email" value="{{ old('email', $users->email) }}" placeholder="example@gmail.com">
                                         </div>
+
                                         <div class="col-md-12 space-t-15">
-                                            <label class="form-label">Address 1</label>
-                                            <input type="text" class="form-control">
+                                            <label>Gender</label>
+                                            @if ($errors->has('gender'))
+                                                <span style="color: red;">{{ $errors->first('gender') }}</span>
+                                            @endif
+                                            <select name="gender" class="form-control">
+                                                <option @selected(old('gender', $users->gender) == 1) value="1" selected>Male </option>
+                                                <option @selected(old('gender', $users->gender) == 0) value="0">Female</option>
+                                                <option @selected(old('gender', $users->gender) == 2)value="2">Not Intressted </option>
+                                            </select>
                                         </div>
+
                                         <div class="col-md-12 space-t-15">
-                                            <label class="form-label">Address 2</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-12 space-t-15">
-                                            <label class="form-label">Address 3</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-6 space-t-15">
-                                            <label class="form-label">Email id 1</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-6 space-t-15">
-                                            <label class="form-label">Email id 2</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-6 space-t-15">
-                                            <label class="form-label">Phone number 1</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-6 space-t-15">
-                                            <label class="form-label">Phone number 2</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-12 space-t-15">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                            <a href="#" class="btn btn-lg btn-secondary qty_close" data-bs-dismiss="modal"
-                                                aria-label="Close">Close</a>
+                                            <label>Status</label>
+                                            @if ($errors->has('status'))
+                                                <span style="color: red;">{{ $errors->first('status') }}</span>
+                                            @endif
+                                            <select name="status" class="form-control">
+                                                <option @selected(old('status', $users->status) == 1) value="1">Active</option>
+                                                <option @selected(old('status', $users->status) == 0) value="0">inActive</option>
+                                            </select>
                                         </div>
                                     </form>
                                 </div>

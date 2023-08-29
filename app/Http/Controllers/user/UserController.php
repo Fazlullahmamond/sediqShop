@@ -7,8 +7,11 @@ use App\Models\CartItems;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,6 +23,7 @@ class UserController extends Controller
 
     public function index()
     {
+        $users = User::FindOrFail(Auth::user()->id);
         $categories = Category::all();
         $most_viewed = Product::orderBy('views', 'desc')->first();
         $new_product = Product::orderBy('id', 'desc')->first();
@@ -30,7 +34,58 @@ class UserController extends Controller
             ->take(4)
             ->get();
         $recentProducts = Product::orderByDesc('created_at')->take(4)->get();
-        return view('front.user.index', compact(['categories', 'most_viewed', 'new_product', 'top_subcategories', 'feature_products', 'new_arrivals', 'recentProducts']));
+        return view('front.user.index', compact(['users','categories', 'most_viewed', 'new_product', 'top_subcategories', 'feature_products', 'new_arrivals', 'recentProducts']));
+    }
+
+    public function profile(Request $request){
+
+        $user = Auth()->user();
+
+        $validatedData=$request->validate([
+        'name' => 'required|string|max:50',
+        'email' => 'required|email|unique:users,email,'.$user->id,
+        'gender' => 'nullable|integer|min:0|max:2',
+        'status' => 'nullable|integer|min:0|max:1',
+        'profile_photo_path' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        if(request()->profile_photo_path){
+            $imageName = time().rand(1,1000000) .'.'.request()->profile_photo_path->getClientOriginalExtension();
+            $validatedData['profile_photo_path'] = $imageName;
+            $img_loc = 'storage/users/';
+            request()->profile_photo_path->move($img_loc , $imageName);
+        }
+        $user->update($validatedData);
+        return redirect()->back()->with('success', 'User updated successfully.');
+
+
+    }
+
+    public function userPassword(Request $request){
+
+        $validatedData = $request->validate([
+            'oldPassword' => 'required|string',
+            'newPassword' => 'required|string|min:6',
+            'confirmPassword' => 'required|string|min:6',
+        ]);
+
+        $user = Auth()->user();
+
+        if(Hash::check($request->oldPassword, $user->password)){
+            if($request->newPassword == $request->confirmPassword){
+                $user->Update([
+                    'password' => Hash::make($request->newPassword)
+                ]);
+                return redirect()->back()->with('success', 'Password updated successfully.');
+            }else{
+                return redirect()->back()->with('error', 'new password and confirm password does not matched..');
+            }
+        }else{
+            return redirect()->back()->with('error', 'Old password is not correct.');
+        }
+
+        return redirect()->back()->with('success', 'Password not updated successfully.');
+
     }
 
 

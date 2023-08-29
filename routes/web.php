@@ -97,6 +97,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 // user pages route here
 Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+    Route::post('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/changePassword', [UserController::class, 'userPassword'])->name('userPassword');
     Route::get('/addToCart', [UserController::class, 'addToCart'])->name('user.addToCart');
     Route::get('/removeFromCart', [UserController::class, 'removeFromCart'])->name('user.removeFromCart');
 

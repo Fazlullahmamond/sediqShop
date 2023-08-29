@@ -98,13 +98,9 @@
                                                                             <div class="form-group">
                                                                                 <label for="name">Full Name</label>
                                                                                 @if ($errors->has('name'))
-                                                                                    <span
-                                                                                        style="color: red;">{{ $errors->first('name') }}</span>
+                                                                                    <span style="color: red;">{{ $errors->first('name') }}</span>
                                                                                 @endif
-                                                                                <input type="text" class="form-control"
-                                                                                    name="name" id="name"
-                                                                                    value="{{ old('name', $users->name) }}"
-                                                                                    placeholder="Enter your name">
+                                                                                <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $users->name) }}" placeholder="Enter your name">
                                                                             </div>
                                                                         </div>
 
@@ -112,13 +108,9 @@
                                                                             <div class="form-group mb-4">
                                                                                 <label for="email">Email</label>
                                                                                 @if ($errors->has('email'))
-                                                                                    <span
-                                                                                        style="color: red;">{{ $errors->first('email') }}</span>
+                                                                                    <span style="color: red;">{{ $errors->first('email') }}</span>
                                                                                 @endif
-                                                                                <input type="email" class="form-control"
-                                                                                    name="email" id="email"
-                                                                                    value="{{ old('email', $users->email) }}"
-                                                                                    placeholder="example@gmail.com">
+                                                                                <input type="email" class="form-control" name="email" id="email" value="{{ old('email', $users->email) }}" placeholder="example@gmail.com">
                                                                             </div>
                                                                         </div>
 
@@ -126,19 +118,12 @@
                                                                             <div class="form-group mb-4">
                                                                                 <label>Gender</label>
                                                                                 @if ($errors->has('gender'))
-                                                                                    <span
-                                                                                        style="color: red;">{{ $errors->first('gender') }}</span>
+                                                                                    <span style="color: red;">{{ $errors->first('gender') }}</span>
                                                                                 @endif
-                                                                                <select name="gender"
-                                                                                    class="form-control">
-                                                                                    <option @selected(old('gender', $users->gender) == 1)
-                                                                                        value="1" selected>Male
-                                                                                    </option>
-                                                                                    <option @selected(old('gender', $users->gender) == 0)
-                                                                                        value="0">Female</option>
-                                                                                    <option @selected(old('gender', $users->gender) == 2)
-                                                                                        value="2">Not Intressted
-                                                                                    </option>
+                                                                                <select name="gender" class="form-control">
+                                                                                    <option @selected(old('gender', $users->gender) == 1) value="1" selected>Male </option>
+                                                                                    <option @selected(old('gender', $users->gender) == 0) value="0">Female</option>
+                                                                                    <option @selected(old('gender', $users->gender) == 2)value="2">Not Intressted </option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -147,15 +132,11 @@
                                                                             <div class="form-group mb-4">
                                                                                 <label>Status</label>
                                                                                 @if ($errors->has('status'))
-                                                                                    <span
-                                                                                        style="color: red;">{{ $errors->first('status') }}</span>
+                                                                                    <span style="color: red;">{{ $errors->first('status') }}</span>
                                                                                 @endif
-                                                                                <select name="status"
-                                                                                    class="form-control">
-                                                                                    <option @selected(old('status', $users->status) == 1)
-                                                                                        value="1">Active</option>
-                                                                                    <option @selected(old('status', $users->status) == 0)
-                                                                                        value="0">inActive</option>
+                                                                                <select name="status" class="form-control">
+                                                                                    <option @selected(old('status', $users->status) == 1) value="1">Active</option>
+                                                                                    <option @selected(old('status', $users->status) == 0) value="0">inActive</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
