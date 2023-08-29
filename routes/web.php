@@ -118,7 +118,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     Route::resource('adminUsers', AdminUsersController::class);
     Route::resource('blog', BlogController::class);
     Route::get('/reviews', [ProductController::class, 'product_reviews'])->name('product.reviews');
-
+    
 });
 
 
