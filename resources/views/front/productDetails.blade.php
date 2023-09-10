@@ -167,7 +167,7 @@ $site_name = 'W World';
                                                 <button class="btn btn-primary" id="addToCartBTN">Add To Cart</button>
                                             </div>
                                             <div class="ec-single-wishlist">
-                                                <a class="ec-btn-group wishlist" title="Wishlist"><i
+                                                <a href="{{ route('wishlist.addToWishlist', $product->id) }}" class="ec-btn-group wishlist" title="Wishlist"><i
                                                         class="fi-rr-heart"></i></a>
                                             </div>
                                             {{-- <div class="ec-single-quickview">

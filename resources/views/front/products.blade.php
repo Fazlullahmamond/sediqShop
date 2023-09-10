@@ -47,7 +47,7 @@
                                             class="fi fi-rr-arrows-repeat"></i></a>
                                     <button title="Add To Cart" class="add-to-cart"><i
                                             class="fi-rr-shopping-basket"></i> Add To Cart</button>
-                                    <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a>
+                                    <a href="{{ route('wishlist.addToWishlist', $product->id) }}" class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a>
                                 </div>
                             </div>
                         </div>

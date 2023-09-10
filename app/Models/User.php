@@ -89,7 +89,7 @@ class User extends Authenticatable
 
     public function addresses()
     {
-        return $this->hasOne(Address::class)->select('id', 'post_code', 'address_line', 'state_id');;
+        return $this->hasOne(Address::class)->select('id', 'post_code', 'address_line', 'state_id');
     }
 
     public function productReviews()

@@ -13,7 +13,9 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^2.11",
         "realrashid/sweet-alert": "^7.0",
-        "stripe/stripe-php": "^10.15"
+        "stripe/stripe-php": "^10.15",
+        "symfony/http-client": "^6.3",
+        "symfony/mailgun-mailer": "^6.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

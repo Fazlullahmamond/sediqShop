@@ -97,10 +97,23 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 // user pages route here
 Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+    
     Route::post('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/historypage', [UserController::class, 'historypage'])->name('historypage');
+    Route::get('/historyDetails/{id}', [UserController::class, 'historyDetails'])->name('history.details');
+    Route::get('/wishlistpage', [UserController::class, 'wishlistpage'])->name('wishlistpage');
+    Route::get('/addToWishlist/{id}', [UserController::class, 'addToWishlist'])->name('wishlist.addToWishlist');
+    Route::get('/wishlistRemove/{id}', [UserController::class, 'wishlistRemove'])->name('wishlist.remove');
+    Route::get('/wishlistAddToCart/{id}', [UserController::class, 'wishlistAddToCart'])->name('wishlist.addToCart');
+    Route::get('/cardpage', [UserController::class, 'cardpage'])->name('cardpage');
+    Route::get('/trackorderpage', [UserController::class, 'trackorderpage'])->name('trackorderpage');
+    Route::get('/invoicepage', [UserController::class, 'invoicepage'])->name('invoicepage');
+
     Route::post('/changePassword', [UserController::class, 'userPassword'])->name('userPassword');
     Route::get('/addToCart', [UserController::class, 'addToCart'])->name('user.addToCart');
     Route::get('/removeFromCart', [UserController::class, 'removeFromCart'])->name('user.removeFromCart');
+    Route::post('/updateAddress', [UserController::class, 'updateAddress'])->name('updateAddress');
+
 
 //     Route::resource('user.addresses', 'UserAddressController');
 //     Route::resource('products.reviews', 'ProductReviewController');

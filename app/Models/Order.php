@@ -11,6 +11,15 @@ class Order extends Model
 
     protected $fillable = ['user_id', 'address_id', 'total_amount', 'status'];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'full_address',
+    ];
+
 
     public function user()
     {
@@ -25,6 +34,15 @@ class Order extends Model
     public function order_items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function  getFullAddressAttribute()
+    {
+        if($this->addresses){
+            return $this->addresses?->state?->name .', '. $this->addresses?->address_line;
+        } else{
+            return "User Address is not available";
+        }
     }
 
 }
