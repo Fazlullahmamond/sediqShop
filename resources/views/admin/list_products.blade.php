@@ -18,7 +18,7 @@
                     </p>
                 </div>
                 <div>
-                    <a href="{{ route('products.create') }}" class="btn btn-primary"> Add Porduct</a>
+                    <a href="{{ route('admin_products.create') }}" class="btn btn-primary"> Add Porduct</a>
                 </div>
             </div>
             <div class="row">
@@ -56,8 +56,8 @@
                                                 <td>{{ $products->created_at }}</td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a type="button" href="{{ route('products.edit', $products->id) }}" class="btn btn-outline-success">Edit</a>
-                                                        <form action="{{ route('products.destroy', $products->id) }}" method="POST" class="btn btn-outline-danger">
+                                                        <a type="button" href="{{ route('admin_products.edit', $products->id) }}" class="btn btn-outline-success">Edit</a>
+                                                        <form action="{{ route('admin_products.destroy', $products->id) }}" method="POST" class="btn btn-outline-danger">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"

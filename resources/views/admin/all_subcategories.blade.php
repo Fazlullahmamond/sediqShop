@@ -27,7 +27,7 @@
 
 										<form action="subcategories" method="POST" enctype="multipart/form-data">
 											@csrf
-		
+
 											<div class="form-group row">
 												<label for="text" class="col-12 col-form-label">Name</label>
 												<div class="col-12">
@@ -37,7 +37,7 @@
 													@endif
 												</div>
 											</div>
-		
+
 											<div class="form-group row">
 												<label class="col-12 col-form-label">Short Description</label>
 												<div class="col-12">
@@ -50,13 +50,13 @@
 											<div class="form-group row">
 												<label for="text" class="col-12 col-form-label">Category</label>
 												<div class="col-12">
-													<select class="selecter" id="selecter" name="selecter">
+													<select class="selecter" id="selecter" name="category_id">
 														<option selected>Choose...</option>
 														@foreach ($categories as $categories)
 														<option value="{{ $categories->id }}">{{ $categories->name }}</option>
 														@endforeach
-														@if ($errors->has('selecter'))
-														<div style="color: red;">{{ $errors->first('selecter') }}</div>
+														@if ($errors->has('category_id'))
+														<div style="color: red;">{{ $errors->first('category_id') }}</div>
 														@endif
 													</select>
 												</div>
@@ -67,16 +67,16 @@
 													<input type="file" id="Categoryimage" name="image" class="form-control">
 													@if ($errors->has('image'))
 													<div style="color: red;">{{ $errors->first('image') }}</div>
-													@endif		
+													@endif
 												</div>
 											</div>
-		
+
 											<div class="row">
 												<div class="col-12">
 													<button name="submit" type="submit" class="btn btn-primary">Submit</button>
 												</div>
 											</div>
-		
+
 										</form>
 
 									</div>
@@ -121,7 +121,7 @@
 															</form>
 														</div>
 													</td>
-												</tr>												
+												</tr>
 												@endforeach
 											</tbody>
 										</table>

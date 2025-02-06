@@ -5,14 +5,13 @@ use App\Http\Controllers\admin\AdminUserProfileController;
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SubCategoryController;
-use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\ProductController as ProductResource;
 
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\WishlistController;
 
 use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\productController as ControllersProductController;
-use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -79,12 +78,14 @@ Route::post('/webhook', [ControllersProductController::class, 'webhook'])->name(
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/contact', [AdminController::class, 'contact'])->name('admin.contact');
+    Route::post('/markasread', [AdminController::class, 'markasread'])->name('admin.markasread');
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubCategoryController::class);
-    Route::resource('products', ProductController::class);
+    Route::get('/get_subcategories', [SubCategoryController::class, 'get_subcategories'])->name('get_subcategories');
+    Route::resource('admin_products', ProductResource::class);
     Route::resource('adminUsers', AdminController::class);
     Route::resource('blog', BlogController::class);
-    Route::get('/reviews', [ProductController::class, 'product_reviews'])->name('product.reviews');
+    Route::get('/reviews', [ProductResource::class, 'product_reviews'])->name('product.reviews');
     Route::get('UserUpdate',[AdminUserProfileController::class,'showpage'])->name('showpage');
     Route::post('UserUpdate',[AdminUserProfileController::class,'userupdate'])->name('userupdate');
     Route::post('changePassword',[AdminUserProfileController::class,'passwordUpdate'])->name('passwordUpdate');
@@ -97,7 +98,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 // user pages route here
 Route::group(['prefix' => '/user', 'middleware' => ['auth', 'user']], function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
-    
+
     Route::post('/profile', [UserController::class, 'profile'])->name('profile');
     Route::get('/historypage', [UserController::class, 'historypage'])->name('historypage');
     Route::get('/historyDetails/{id}', [UserController::class, 'historyDetails'])->name('history.details');

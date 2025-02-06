@@ -10,6 +10,11 @@
 
 			<!-- CONTENT WRAPPER -->
 			<div class="ec-content-wrapper">
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        hello this is testeing
+                    </div>
+                @endif
 				<div class="content">
 					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
 						<div>
@@ -18,7 +23,7 @@
 								<span><i class="mdi mdi-chevron-right"></i></span>Add Product</p>
 						</div>
 						<div>
-							<a href="{{ route("products.index") }}" class="btn btn-primary"> View All
+							<a href="{{ route("admin_products.index") }}" class="btn btn-primary"> View All
 							</a>
 						</div>
 					</div>
@@ -33,15 +38,15 @@
 									<div class="row ec-vendor-uploads">
 										<div class="col-lg-12">
 											<div class="ec-vendor-upload-detail">
-												<form class="row g-3" action="{{ route("products.store") }}" method="POST" enctype="multipart/form-data">
+												<form class="row g-3" action="{{ route('admin_products.store') }}" method="POST" enctype="multipart/form-data">
 													@csrf
 													<div class="col-lg-4">
-														<div class="ec-vendor-img-upload">
+														<div class="ec-vendor-img-upload m-3">
 															<div class="ec-vendor-main-img">
 																<div class="avatar-upload">
 																	<div class="avatar-edit">
-																		<input type='file' id="imageUpload" name='image' class="ec-image-upload"
-																			accept=".png, .jpg, .jpeg" />
+																		<input type='file' id="imageUpload" name='images[]' class="ec-image-upload"
+																			accept=".png, .jpg, .jpeg" multiple/>
 																		<label for="imageUpload"><img
 																				src="{{ asset('back/assets/img/icons/edit.svg') }}"
 																				class="svg_img header_svg" alt="edit" name='image' /></label>
@@ -63,48 +68,41 @@
 														@if ($errors->has('title'))
                                                 		<div style="color: red;">{{ $errors->first('title') }}</div>
                                             			@endif
-													</div>
-													<div class="col-md-4">
-														<label class="form-label">Select Categories</label>
-														<select name="sub_category_id" id="Categories" class="form-select">
-															@foreach ($categories as $categories)
-															<option value="{{$categories->id}}">{{$categories->name}}</option>		
-															@endforeach
-															@if ($errors->has('sub_category_id'))
-                                                			<div style="color: red;">{{ $errors->first('sub_category_id') }}</div>
-                                            				@endif
-														</select>
-													</div>
-													<div class="col-md-12">
-														<label for="slug" class="col-12 col-form-label">Slug</label> 
+
+                                                        <label for="slug" class="col-4 col-form-label">Slug</label>
 														<div class="col-12">
 															<input id="slug" name="slug" class="form-control here set-slug" type="text" value="">
 															@if ($errors->has('slug'))
                                                 			<div style="color: red;">{{ $errors->first('slug') }}</div>
                                             				@endif
 														</div>
-													</div>
-													<div class="col-md-12">
-														<label class="form-label">Short Description</label>
-														<textarea class="form-control" rows="2" name='description'></textarea>
-														@if ($errors->has('description'))
-                                                		<div style="color: red;">{{ $errors->first('description') }}</div>
-                                            			@endif
+
 													</div>
 
 
-													<div class="col-md-12 mb-25">
-														<label class="form-label">Size</label>
-														<div class="form-checkbox-box">
-															@foreach ($sizes as $size)
-															<div class="form-check form-check-inline">
-																<input type="checkbox" name="sizes[]" value="{{$size->id}}">
-																<label>{{$size->name}}</label>
-															</div>
-																
+													<div class="col-md-4">
+														<label class="form-label">Select Categories</label>
+														<select name="category" id="categories" class="form-select">
+															@foreach ($categories as $categoy)
+															<option value="{{$categoy->id}}">{{$categoy->name}}</option>
 															@endforeach
-														</div>
+															@if ($errors->has('category'))
+                                                			<div style="color: red;">{{ $errors->first('category') }}</div>
+                                            				@endif
+														</select>
+
+                                                        <label class="form-label">Select Sub Categories</label>
+														<select name="sub_category_id" id="subcategory" class="form-select" >
+															<option value="">Select</option>
+
+															@if ($errors->has('category'))
+                                                			<div style="color: red;">{{ $errors->first('category') }}</div>
+                                            				@endif
+														</select>
+
+
 													</div>
+
 													<div class="col-md-4">
 														<label class="form-label">Price <span>( In USD
 																)</span></label>
@@ -124,8 +122,16 @@
 														<label class="form-label">Discount</label>
 														<input type="number" class="form-control" id="discount" name='discount'>
 													</div>
+
+													<div class="col-md-12" style="margin-top: 14px">
+														<label class="form-label">Short Description</label>
+														<textarea class="form-control" rows="2" name='description'></textarea>
+														@if ($errors->has('description'))
+                                                		<div style="color: red;">{{ $errors->first('description') }}</div>
+                                            			@endif
+													</div>
 													<div class="col-md-12">
-														<label class="form-label">Ful Detail</label>
+														<label class="form-label">Full Details</label>
 														<textarea class="form-control" rows="4" name='all_details'></textarea>
 														@if ($errors->has('all_details'))
                                                 		<div style="color: red;">{{ $errors->first('all_details') }}</div>
@@ -137,6 +143,20 @@
 														<input type="text" class="form-control" id="group_tag"
 															name="tags" value="" placeholder=""
 															data-role="tagsinput" />
+													</div>
+
+
+													<div class="col-md-12 mb-25">
+														<label class="form-label">Size</label>
+														<div class="form-checkbox-box">
+															@foreach ($sizes as $size)
+															<div class="form-check form-check-inline">
+																<input type="checkbox" name="sizes[]" value="{{$size->id}}">
+																<label>{{$size->name}}</label>
+															</div>
+
+															@endforeach
+														</div>
 													</div>
 
 													<div class="col-md-8 mb-25">
@@ -165,7 +185,36 @@
 						</div>
 					</div>
 				</div> <!-- End Content -->
-			</div> 
+			</div>
 			<!-- End Content Wrapper -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $("document").ready(function () {
+                $('#categories').on('change', function () {
+                    var catId = $(this).val();
+                    console.log(catId);
+                    if (catId) {
+                        $.ajax({
+                            url: '/admin/get_subcategories',
+                            data: {
+                                id: catId
+                            },
+                            success: function(data) {
+                                $('#subcategory').empty();
+                                $.each(data, function (key, value) {
+                                    $('#subcategory').append('<option value=" ' + key + '">' + value + '</option>');
+                                })
+                            },
+                            error: function(error) {
+                                console.error(error);
+                            }
+                        })
+                    } else {
+                        $('#subcategory').empty();
+                    }
+                });
+            });
+        </script>
 
 @endsection

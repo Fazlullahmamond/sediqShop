@@ -40,7 +40,7 @@
                             <div class="col-lg-12">
                                 <div class="ec-vendor-upload-detail">
                                     {{-- <form class="row g-3" action="{{ route('products.update' , $products->id) }}" method="POST" enctype="multipart/form-data"> --}}
-                                    <form class="row g-3" action="{{ route('products.update' , $products->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form class="row g-3" action="{{ route('admin_products.update' , $products->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method("PUT")
 
@@ -65,7 +65,7 @@
                                             <label class="form-label">Select Categories</label>
                                             <select name="sub_category_id" id="Categories" class="form-select">
                                                 @foreach ($categories as $categories)
-                                                <option value="{{$categories->id}}">{{$categories->name}}</option>		
+                                                <option value="{{$categories->id}}">{{$categories->name}}</option>
                                                 @endforeach
                                                 @if ($errors->has('sub_category_id'))
                                                 <div style="color: red;">{{ $errors->first('sub_category_id') }}</div>
@@ -73,7 +73,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-12">
-                                            <label for="slug" class="col-12 col-form-label">Slug</label> 
+                                            <label for="slug" class="col-12 col-form-label">Slug</label>
                                             <div class="col-12">
                                                 <input id="slug" name="slug" class="form-control here set-slug" type="text" value={{ $products->slug}}>
                                                 @if ($errors->has('slug'))
@@ -98,7 +98,7 @@
                                                     <input type="checkbox" name="sizes[]" value="{{$size->id}}">
                                                     <label>{{$size->name}}</label>
                                                 </div>
-                                                    
+
                                                 @endforeach
                                             </div>
                                         </div>
@@ -162,5 +162,5 @@
             </div>
         </div>
     </div> <!-- End Content -->
-</div> 
+</div>
 @endsection

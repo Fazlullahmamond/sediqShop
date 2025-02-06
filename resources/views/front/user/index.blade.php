@@ -231,7 +231,7 @@
                                         <select name="country_id" class="form-control"
                                             style="border: 1px solid lightgray !important;">
                                             @foreach ($countries as $country)
-                                                <option @selected(old('country_id', $users->addresses ? $users->addresses->state->country->id : '') == $country->id) value="{{ $country->id }}">
+                                                <option @selected(old('country_id', $users->addresses->state->country->id) == $country->id) value="{{ $country->id }}">
                                                     {{ $country->name }} </option>
                                             @endforeach
                                         </select>
@@ -245,7 +245,7 @@
                                         <select name="state_id" class="form-control"
                                             style="border: 1px solid lightgray !important;">
                                             @foreach ($states as $state)
-                                                <option @selected(old('state_id', $users->addresses ? $users->addresses->state->id : '') == $state->id) value="{{ $state->id }}">
+                                                <option @selected(old('state_id', $users->addresses->state->id) == $state->id) value="{{ $state->id }}">
                                                     {{ $state->name }} </option>
                                             @endforeach
                                         </select>
@@ -257,7 +257,7 @@
                                             <span style="color: red;">{{ $errors->first('address_line') }}</span>
                                         @endif
                                         <input type="text" class="form-control" name="address_line" id="address_line"
-                                            value="{{ old('address_line', $users->addresses ? $users->addresses->address_line : '') }}"
+                                            value="{{ old('address_line', $users->addresses->address_line) }}"
                                             placeholder="Enter your address">
                                     </div>
 
@@ -267,7 +267,7 @@
                                             <span style="color: red;">{{ $errors->first('post_code') }}</span>
                                         @endif
                                         <input type="text" class="form-control" name="post_code" id="post_code"
-                                            value="{{ old('post_code', $users->addresses ? $users->addresses->post_code : '') }}"
+                                            value="{{ old('post_code', $users->addresses->post_code) }}"
                                             placeholder="Enter your Post Code">
                                     </div>
 

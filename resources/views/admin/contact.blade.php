@@ -8,6 +8,11 @@
 
 
 			<!-- CONTENT WRAPPER -->
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 			<div class="ec-content-wrapper">
 				<div class="content">
 					<div
@@ -17,6 +22,10 @@
 							<span><i class="mdi mdi-chevron-right"></i></span>Contacts
 						</p>
 					</div>
+                    <form action="{{ route('admin.markasread') }}" method="POST">
+                        @csrf
+                        <input type="submit" value="Mark all as read" class="btn btn-sm btn-primary" id="mark_as_read">
+                    </form>
 					<div class="row">
 						<div class="col-12">
 							<div class="card card-default">
@@ -42,11 +51,11 @@
                                                         <td>{{ $con->phone_number }}</td>
                                                         <td>{{ $con->comment }}</td>
                                                         @if ($con->status == 0)
-                                                            <td style="color: red;">Pendding</td>
+                                                            <td style="color: red;">Unseen</td>
                                                         @elseif ($con->status == 1)
-                                                            <td style="color: green;">Active</td>
+                                                            <td style="color: green;">Seen</td>
                                                         @else
-                                                            <td style="color: yellow;">Not Active</td>
+                                                            <td style="color: yellow;">Pending</td>
                                                         @endif
                                                     </tr>
                                                 @endforeach

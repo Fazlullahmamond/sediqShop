@@ -34,7 +34,7 @@ class SubCategoryController extends Controller
         $validatedData = $request->validate([
             'name' => ['required','string','max:255'],
             'description' => ['nullable','string','max:255'],
-            'selecter' => 'required|integer|max:255',
+            'category_id' => 'required|integer|max:255',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -43,8 +43,8 @@ class SubCategoryController extends Controller
             $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/subcategories/';
             request()->image->move($img_loc , $imageName);
-        } 
-   
+        }
+
         $subcategory = SubCategory::create($validatedData);
         return redirect()->back()->with('success', 'Saved successfully');
     }
@@ -57,7 +57,7 @@ class SubCategoryController extends Controller
         $subcategory = SubCategory::find($id);
         $categories = Category::all();
         return view('admin.subcategories.edit', compact('subcategory', 'categories'));
-        
+
     }
 
 
@@ -81,13 +81,13 @@ class SubCategoryController extends Controller
             'selecter' => 'required|integer|max:255',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif',
         ]);
-        
+
         if(request()->image){
             $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
             $validatedData['image'] = $imageName;
             $img_loc = 'storage/images/subcategories/';
             request()->image->move($img_loc , $imageName);
-        } 
+        }
 
         $subcategory = SubCategory::findOrFail($id);
         $subcategory->update($validatedData);
@@ -109,5 +109,15 @@ class SubCategoryController extends Controller
             return redirect()->back()->with('error', 'subcategory contains category!');
         }
 
+    }
+
+
+    //This method returns the view for editing an existing subcategory.
+    public function get_subcategories(Request $request)
+    {
+        $category_id = $request->input('id');
+        $subcategories = Category::findOrFail($category_id)->subcategories;
+        $data = $subcategories->pluck('name', 'id')->toArray();
+        return response()->json($data);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductReview;
@@ -29,10 +30,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = SubCategory::all();
+        $categories = Category::all();
+        $subcategory = SubCategory::all();
         $sizes = size::All();
-        return view('admin.add_product',compact('categories','sizes'));
-       
+        return view('admin.add_product',compact('categories','sizes','subcategory'));
+
     }
 
     /**
@@ -41,15 +43,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = array();
-        if(request()->image){
-            $imageName = time().rand(1,1000000) .'.'.request()->image->getClientOriginalExtension();
-            $data['image_path'] = $imageName;
-            $img_loc = 'storage/images/products/';
-            request()->image->move($img_loc , $imageName);
-            DB::table('product_images')->insert($data);
-        }
-        
-        
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
@@ -62,11 +56,25 @@ class ProductController extends Controller
             'tags' => 'nullable|string',
             'hot_offer' => 'nullable|boolean',
             'feature' => 'nullable|boolean',
-            'status' => 'nullable|integer|min:0|max:1',
-            'views' => 'nullable|integer|min:0',
         ]);
 
         $product = Product::create($validatedData);
+        // store the product sizes
+        $sizes = $request->input('sizes', []);
+        $product->sizes()->sync($sizes);
+
+        if(request()->images){
+            foreach(request()->images as $image){
+                $imageName = time().rand(1,1000000) .'.'.$image->getClientOriginalExtension();
+                $img_loc = 'storage/images/products/';
+                $image->move($img_loc , $imageName);
+                    
+                $product_image = new ProductImage();
+                $product_image->product_id = $product->id;
+                $product_image->image_path = $imageName;
+                $product_image->save();
+            }
+        }
         return redirect()->back()->with('success', 'Saved successfully');
     }
 
@@ -76,7 +84,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        
+
         $products = Product::all();
         return view('admin.list_products',compact('products'));
 
@@ -95,7 +103,7 @@ class ProductController extends Controller
         $sizes  = size::All();
         return view('admin.products.edit', compact('products','categories','sizes'));
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -164,7 +172,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id)->delete();
-        return redirect()->route('product.index')->with('success', 'Saved successfully');
+        return redirect()->route('admin_products.index')->with('success', 'Saved successfully');
 
 
         // return response()->json(null, 204);

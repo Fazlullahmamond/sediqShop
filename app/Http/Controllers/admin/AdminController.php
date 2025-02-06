@@ -28,8 +28,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        
-        
+
+
     }
 
     /**
@@ -44,7 +44,7 @@ class AdminController extends Controller
             'status' => 'nullable|integer|min:0|max:1',
             'profile_photo_path' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
-        
+
         if(request()->profile_photo_path){
             $imageName = time().rand(1,1000000) .'.'.request()->profile_photo_path->getClientOriginalExtension();
             $img_loc = 'storage/users/';
@@ -92,7 +92,7 @@ class AdminController extends Controller
             $validatedData['profile_photo_path'] = $imageName;
             $img_loc = 'storage/users/';
             request()->profile_photo_path->move($img_loc , $imageName);
-            
+
         }
 
         $validatedData['password'] = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
@@ -173,7 +173,18 @@ class AdminController extends Controller
     //
     public function contact()
     {
-        $contact = ContactUs::orderByDesc('created_at')->get();
+        $contact = ContactUs::orderBy('created_at', 'DESC')->get();
         return view('admin.contact', compact('contact'));
+    }
+
+    //
+    public function markasread()
+    {
+        $contacts = ContactUs::all();
+        foreach ($contacts as $contact){
+            $contact->update(['status' => 1]);
+        }
+        session()->flash('success', 'All recieved message are marked as read.');
+        return redirect()->back();
     }
 }

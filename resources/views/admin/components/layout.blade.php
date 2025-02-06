@@ -81,7 +81,7 @@
                                             <span class="nav-text">Users List</span>
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                             <hr>
@@ -118,12 +118,12 @@
                             <div class="collapse">
                                 <ul class="sub-menu" id="products" data-parent="#sidebar-menu">
                                     <li class="">
-                                        <a class="sidenav-item-link" href="{{ route('products.create') }}">
+                                        <a class="sidenav-item-link" href="{{ route('admin_products.create') }}">
                                             <span class="nav-text">Add Product</span>
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a class="sidenav-item-link" href="{{ route('products.index') }}">
+                                        <a class="sidenav-item-link" href="{{ route('admin_products.index') }}">
                                             <span class="nav-text">List Product</span>
                                         </a>
                                     </li>

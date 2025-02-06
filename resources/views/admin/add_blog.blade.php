@@ -13,7 +13,7 @@
 				<div class="content">
 					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
 						<div>
-							<h1>Add Product</h1>
+							<h1>Add Post</h1>
 							<p class="breadcrumbs"><span><a href="{{ route("admin.dashboard") }}">Dashboard</a></span>
 								<span><i class="mdi mdi-chevron-right"></i></span>Add Product</p>
 						</div>
@@ -60,7 +60,7 @@
 										</div>
 										<div class="col-lg-8">
 											<div class="ec-vendor-upload-detail">
-												
+
 													<div class="col-md-12">
 														<label for="Productname" class="form-label mt-4" name='title'>Title</label>
 														<input type="text" class="form-control slug-title" id="Productname" name='title' >
@@ -79,7 +79,7 @@
 														<div style="color: red;">{{ $errors->first('tags') }}</div>
 														@endif
 													</div>
-													
+
 													<div class="col-md-12">
 														<label class="form-label mt-4" name='description'>Description</label>
 														<textarea class="form-control" rows="4" name='description'></textarea>
@@ -87,13 +87,13 @@
                                                 		<div style="color: red;">{{ $errors->first('description') }}</div>
                                             			@endif
 													</div>
-													
+
 
 
 													<div class="col-md-12 mt-3">
 														<button type="submit" class="btn btn-primary">Submit</button>
 													</div>
-												
+
 											</div>
 										</div>
 									</form>
@@ -103,7 +103,7 @@
 						</div>
 					</div>
 				</div> <!-- End Content -->
-			</div> 
+			</div>
 			<!-- End Content Wrapper -->
 
 @endsection
